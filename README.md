@@ -33,6 +33,7 @@ movie_mania_theme/           # Custom theme for frontend
 src/Model/MovieModel.php     # Handles database queries
 src/Form/FiltersForm.php     # Implements AJAX-based filtering
 src/Controller/MoviesController.php  # Controls movie data display
+src/Service/MovieApiService.php    #this class is responsible for API calls with IMDb
 ```
 
 ## 🚧 Setup & Installation
