@@ -1,0 +1,8 @@
+movies_page:
+  path: '/best-movies'
+  defaults:
+    _controller: '\Drupal\best_movies\Controller\MoviesController::renderMovies'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE

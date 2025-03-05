@@ -1,0 +1,7 @@
+moreinfo:
+  version: 1.x
+  js:
+    js/moreinfo.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

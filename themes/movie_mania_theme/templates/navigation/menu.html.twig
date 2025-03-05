@@ -1,0 +1,8 @@
+{# Loop through menu items #}
+<div class="custom_menu">
+  {# Loop through menu items #}
+  {% for item in items %}
+    {# Generate a link element with the "menu__item" class #}
+    {{ link(item.title, item.url, item.attributes.addClass('menu__item')) }}
+  {% endfor %}
+</div>

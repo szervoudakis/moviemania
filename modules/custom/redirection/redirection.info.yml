@@ -1,0 +1,6 @@
+name: 'Redirection Module'
+type: module
+description: 'Custom redirection after user hit the button submit on login'
+package: Custom
+version: 1.0
+core_version_requirement: ^8 || ^9

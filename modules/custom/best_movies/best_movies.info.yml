@@ -1,0 +1,8 @@
+name: 'Best Movies Module'
+type: module
+description: 'with this module you can find the best movies of all time!'
+package: Custom
+version: 1.0
+core_version_requirement: ^8 || ^9
+libraries:
+  - best_movies/scripts

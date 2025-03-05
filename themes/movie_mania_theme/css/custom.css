@@ -1,0 +1,459 @@
+/* Custom styling for the header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  /* border-bottom: 2px solid orange; */
+  background-color: #282d36;
+}
+
+/* Header region */
+.header.region {
+  padding: 5px;
+}
+
+/* Header branding region */
+.header.region-branding {
+  flex: 0 1 20%;
+}
+
+/* Header navigation region */
+.header.region-navigation {
+  flex: 0 1 50%;
+}
+
+/* Header search region */
+.header.region-search {
+  flex: 0 1 30%;
+}
+
+/* Block region */
+.region.block-region {
+  padding: 15px;
+}
+.open-dialog-info{
+	padding: 7px 27px;
+	color:white;
+	background-color: #E50914;
+	border-radius: 10px;
+	margin-top:10px;
+	font-weight: 500;
+}
+/* Right sidebar */
+.main.right--sidebar {
+  flex: 0 1 34%;
+}
+
+/* Top section of the footer */
+.footer--top {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+/* Styling for footer regions */
+.footer--top .region {
+  padding: 5px;
+}
+
+/* Footer regions: first, second, third */
+.region-footer-first,
+.region-footer-second,
+.region-footer-third {
+  flex: 0 1 30%;
+}
+
+/* Footer region */
+/* .footer-region {
+  background-color: orange;
+} */
+
+/* About and contact section styling */
+.about-wrapper,
+.contact-wrapper {
+  color: white;
+  font-size: medium;
+}
+
+/* Footer styling */
+#footer {
+  /* position: fixed; */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1C1C1C;
+  padding: 10px;
+  border-top: 1px solid black;
+  z-index: 1000;
+  color:#E0E0E0;
+}
+#footer p{
+  color:#E0E0E0;
+}
+#footer h2{
+  color:#E0E0E0;
+}
+/* Username label styling */
+.user-login-form label[for="edit-name"] {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Username input field styling */
+.user-login-form input#edit-name {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Password label styling */
+.user-login-form label[for="edit-pass"] {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Password input field styling */
+.user-login-form input#edit-pass {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Login button styling */
+.user-login-form input#edit-submit {
+  width: 100%;
+  padding: 10px;
+  background-color:#E50914; 
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.page-title{
+  font-weight: 400;
+}
+
+.tabs a.is-active{
+  background-color: #E50914;
+  color:white;
+  border-radius: 6px;
+  font-weight: 600;
+  /* padding:10px; */
+}
+
+/* Forgot password link styling */
+.user-login-form a[title="Forgot your password?"] {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+.login-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: transparent;
+  border: 2px solid lightblue;
+  border-radius: 5px;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+/* Custom styling for the user registration form */
+.reset-wrapper,
+.register-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border: 2px solid #E50914;
+  border-radius: 5px;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+/* Email and username label styling */
+.user-register-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Email and username input field styling */
+.user-register-form input[type="email"],
+.user-register-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Picture input field styling */
+.user-register-form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/* Upload button styling */
+.user-register-form input#edit-user-picture-0-upload-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Create new account button styling */
+.user-register-form input#edit-submit {
+  width: 100%;
+  padding: 10px;
+  background-color: orange;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Picture description styling */
+.user-register-form #edit-user-picture-0--description {
+  margin-top: -10px;
+}
+
+/* Personal contact form checkbox styling */
+.user-register-form input#edit-contact--2 {
+  margin-right: 10px;
+}
+
+/* Personal contact form label styling */
+.user-register-form label[for="edit-contact--2"] {
+  font-weight: normal;
+}
+
+/* Username or email address label styling */
+.user-pass label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Username or email address input field styling */
+.user-pass input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+#edit-submit{
+  background-color: lightblue;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px;
+}
+/* Submit button styling */
+.user-pass input#edit-submit {
+  width: 100%;
+  padding: 10px;
+  background-color: orange;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+
+/* Styling for the user account form */
+.user-form {
+  margin: 20px;
+  padding: 20px;
+  /* border: 1px solid #ccc; */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the "Email address" label */
+.user-form label[for="edit-mail"] {
+  display: block;
+  font-weight: bold;
+}
+
+/* Styling for the "Email address" input field */
+.user-form input#edit-mail {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Styling for the "Password" label */
+.user-form label[for="edit-pass-pass1"] {
+  display: block;
+  font-weight: bold;
+}
+
+/* Styling for the "Password" input field */
+.user-form input#edit-pass-pass1 {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Styling for the "Confirm password" label */
+.user-form label[for="edit-pass-pass2"] {
+  display: block;
+  font-weight: bold;
+}
+
+/* Styling for the "Confirm password" input field */
+.user-form input#edit-pass-pass2 {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Styling for the "Picture" label */
+.user-form label[for="edit-user-picture-0-upload"] {
+  display: block;
+  font-weight: bold;
+}
+
+/* Styling for the "Upload" button */
+.user-form input#edit-user-picture-0-upload-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.menu__item.is-active {
+  border-bottom: 2px solid white;
+}
+
+/* Styling for the "Save" button */
+.user-form input#edit-submit {
+  width: 100%;
+  padding: 10px;
+  background-color: orange;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+}
+
+.region-navigation{
+  display: flex;
+  padding: 44px;
+  
+}
+.menu__item{
+  margin:6px;
+  text-decoration: none;
+  color:white;
+  font-size: 22px;
+}
+
+.content-box-rounded {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 1.25rem;
+  border-radius: 10px;
+  border: 2px solid; 
+  /* border-image: linear-gradient(to bottom, #0f03ba, rgb(255, 217, 0)) 1;  */
+  border-image-slice: 1; 
+  position: relative;
+  border-radius: 10px;
+  border:  2px solid #FFD700;
+}
+
+
+/*homepage style for blocks*/
+.homepage-block{
+  box-shadow: 0 0 6px rgb(0 0 0 / 30%);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  padding: 1.25rem;
+  margin-bottom: 20px;
+  border-left: 1px solid orange;
+  border-right: 1px solid orange;
+  border-top: 1px solid orange;
+  border-bottom: 1px solid orange;
+}
+
+/* Code for screens with a width of 768px and above */
+@media (min-width: 768px) {
+  
+  .login-wrapper,
+  .reset-wrapper,
+  .register-wrapper {
+    max-width: 768px; 
+  }
+  .user-form,
+  .user-login-form,
+  .user-register-form {
+    width: 50%; 
+  }
+}
+
+@media only screen and (max-width: 600px) {
+ 
+  .login-wrapper,
+  .reset-wrapper,
+  .register-wrapper {
+    max-width: 500px; 
+  }
+  .user-form,
+  .user-login-form,
+  .user-register-form {
+    width: 100%; 
+  }
+  #block-movie-mania-theme-branding{
+    text-align: center;
+  }
+  .tabs.primary{
+    display: grid;
+  }
+  .tabs a.is-active{
+    background-color: transparent;
+    color:black;
+    border-bottom: 1px solid lightsalmon;
+    font-weight: 600;
+  }
+  .header-hm{
+    font-size:medium;
+  }
+  .menu__item{
+    font-size: medium;
+  }
+}

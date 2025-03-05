@@ -1,0 +1,30 @@
+<?php
+use Drupal\Core\Language\LanguageInterface;
+
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * @param array $attachments
+ */
+function best_movies_page_attachments(&$attachments)
+{
+    $attachments['#attached']['library'][] = 'best_movies/scripts';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function best_movies_theme($existing, $type, $theme, $path) {
+    
+    return [
+      'movies_page' => [
+        'variables' => ['movies' => NULL, 'filters' => NULL],
+      ],
+      'render_movies' => [
+        'variables' => ['movies' => NULL, 'filters' => NULL],
+      ],
+    ];
+
+  }
+  

@@ -1,0 +1,14 @@
+services:
+  best_movies.commands:
+    class: \Drupal\best_movies\Commands\BatchCommands
+    arguments: ['@best_movies.movie_api_service','@best_movies.movie_model']
+    tags:
+      - { name: drush.command }
+
+  best_movies.movie_model:
+    class: Drupal\best_movies\Model\MovieModel
+    arguments: ['@database']
+
+  best_movies.movie_api_service:
+    class: 'Drupal\best_movies\Service\MovieApiService'
+    arguments: ['@http_client', '@config.factory']  

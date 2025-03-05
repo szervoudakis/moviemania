@@ -1,0 +1,21 @@
+
+{{ include('@movie_mania_theme/layout/header.html.twig') }}
+<section class="featured-one" id="featured" role="complementary">
+  {{ page.featured }}
+</section>
+<div class="container">
+ 
+  <section class="main" id="main">
+
+    <main aria-label="Site main content" class="content" id="content" role="main">
+    
+        {{ page.content }} 
+        
+    </main>
+    <aside class="right--sidebar" id="sidebar" role="complementary">
+      {{ page.right_sidebar }}
+    </aside>
+  
+  </section>
+</div> 
+{{ include('@movie_mania_theme/layout/footer.html.twig') }}

@@ -1,0 +1,21 @@
+name: Movie Mania Theme
+type: theme
+description: this is a custom theme for MovieMania;
+package: Other
+core_version_requirement: ^9
+libraries:
+  - movie_mania_theme/glo-libraties
+  - movie_mania_theme/bootstrap-assets
+base theme: classy
+
+regions:
+  branding: Branding
+  navigation: Main navigation
+  search: Search
+  featured: Featured
+  content: Content
+  right_sidebar: Right sidebar
+  footer_first: Footer First
+  footer_second: Footer Second
+  footer_third: Footer Third
+  footer_bottom: Footer Bottom

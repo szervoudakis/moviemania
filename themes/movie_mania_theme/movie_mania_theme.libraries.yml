@@ -1,0 +1,13 @@
+glo-libraties:
+  version: 1.x
+  css:
+   theme:
+     css/custom.css: {}
+
+bootstrap-assets:
+  version: 5.3.2 
+  css:
+    theme:
+      css/bootstrap.min.css: {}
+  js:
+    js/bootstrap.min.js: {}

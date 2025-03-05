@@ -1,0 +1,9 @@
+<h2>{{'Top 250 Movies' | t}}</h2>
+<div class="row">
+   <div class="col-md-2">
+        {{filters}}
+   </div>
+   <div class="col-md-10">
+   {{ include('modules/custom/best_movies/templates/render-movies.html.twig') }}
+   </div>
+</div>

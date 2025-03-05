@@ -1,0 +1,44 @@
+<div id='movie-items'>
+   {% if movies|length > 0 %}
+    <div class="row">
+   {% for movie in movies %}
+        <div class="col-md-5"> <!---->
+            <div class="content-box-rounded">
+                
+                <div class="card-field">
+                    <h4>{{ 'Title of Movie' | t }}</h4>
+                    <p>{{ movie.title }}</p>
+                </div>
+                <div class="card-field">
+                    <h4>{{ 'Release date' | t }}</h4>
+                    <p>{{ movie.release_date }}</p>
+                </div>
+                {% set nameid = 'more-info'~ movie.nid %}
+                <div class="more-info" id="{{nameid}}" style="display:none;">
+                    <div class="card-field">
+                        <h4>{{ 'Original Title' | t }}</h4>
+                        <p>{{ movie.description|striptags }}</p>
+                    </div>
+                    <div class="card-field">
+                        <h4>{{ 'Type' | t }}</h4>
+                        <p>{{ movie.field_type|striptags }}</p>
+                    </div>
+                   <div class="card-field">
+                        <h4>{{ 'URL IMDB' | t }}</h4>
+                        <p><a href="{{ movie.url }}" target="_blank">{{ movie.url }}</a></p>
+                   </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                    <input type="submit" class="open-dialog-info" id="{{ movie.nid }}" value="Learn More.." style="background-color:dark-blue;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if loop.index is divisible by(2) and not loop.last %}
+            <div class="clearfix"></div> <!-- add clearfix every second item -->
+        {% endif %}
+   {% endfor %}
+   </div>
+   {% endif %}
+</div>
