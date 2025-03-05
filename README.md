@@ -39,7 +39,7 @@ src/Service/MovieApiService.php    #this class is responsible for API calls with
 ## 🚧 Setup & Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/szervoudakis/movie-mania.git
+   git clone https://github.com/szervoudakis/moviemania.git
    ```
 2. Navigate to the project directory and start DDEV:
    ```bash
