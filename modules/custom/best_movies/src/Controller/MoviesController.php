@@ -39,7 +39,7 @@ class MoviesController extends ControllerBase {
             ],
         ];
     }
-
+    //this function is responsible to send the data to front end
     public function renderSortMovies($value = NULL) {
       $results = [];
 
