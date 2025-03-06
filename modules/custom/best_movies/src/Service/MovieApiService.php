@@ -21,6 +21,8 @@ class MovieApiService {
             'x-rapidapi-host' => $this->apiHost,
             'x-rapidapi-key' => $this->apiKey,
         ];
+
+        // echo $this->apiKey;
         
         $response = $this->httpClient->request('GET', $url, ['headers' => $headers]);
 

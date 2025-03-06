@@ -87,5 +87,24 @@ class MovieModel {
         } 
 
     }
+    //this function deletes data from specific content type
+    public function deleteMovies($contentType) {
+        $storage = \Drupal::entityTypeManager()->getStorage('node');
+    
+        // Query for node IDs of the given content type
+        $nids = $storage->getQuery()
+            ->condition('type', $contentType)
+            ->execute();
+    
+        if (!empty($nids)) {
+            // Load and delete nodes
+            $nodes = $storage->loadMultiple($nids);
+            $storage->delete($nodes);
+            return count($nodes);
+        }
+    
+        return 0;
+    }
+    
     
 }

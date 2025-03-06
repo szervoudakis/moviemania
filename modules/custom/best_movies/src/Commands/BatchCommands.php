@@ -7,6 +7,7 @@ use Drush\Commands\DrushCommands;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\best_movies\Service\MovieApiService;
 use Drupal\best_movies\Model\MovieModel;
+use Psr\Log\LoggerInterface;
 
 class BatchCommands extends DrushCommands {
 
@@ -38,16 +39,39 @@ class BatchCommands extends DrushCommands {
     */
     public function populateMovies() {
         
-        //$data=$this->movieApiService->fetchTop250Movies(); 
-       // print_r($data);
-       $jsonData = file_get_contents('temp.json');
-       $data = json_decode($jsonData, true);
-
-        // $results=$data['results'];  //put only results into php array
+       $data=$this->movieApiService->fetchTop250Movies(); 
         
         $this->ModelMovie->insertMovies($data);
-        echo"the top 250 movies stored in db!";
-        echo"\n";
+        $this->logger()->success("Successfully stored the best 250 movies (based on rating in IMDb)");
     }
-    
+
+    /**
+     * Deletes all movies from the 'movies' content type.
+     *
+     * @command best_movies:deletemovies
+     * @aliases deletemovies
+     * @usage best_movies:deletemovies
+     *   Deletes all nodes of type 'movies'.
+     */
+    public function deleteMovies() {
+        $contentType = 'movies';
+
+        // Ensure the MovieModel service is available
+        if (!$this->ModelMovie) {
+            $this->logger()->error('MovieModel service is not available.');
+            return;
+        }
+
+        // Call the delete function from MovieModel
+        $deletedCount = $this->ModelMovie->deleteMovies($contentType);
+
+        // Log the outcome of the operation
+        if ($deletedCount > 0) {
+            $this->logger()->success("Successfully deleted $deletedCount movies from content type: $contentType.");
+        } else {
+            $this->logger()->warning("No movies found for deletion in content type: $contentType.");
+        }
+    }
+
+
 }
