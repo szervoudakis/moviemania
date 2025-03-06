@@ -20,19 +20,22 @@ class FiltersForm extends FormBase{
     }
     
     public function buildForm(array $form, FormStateInterface $form_state) {
-       
-        $form['date'] = array(
+       //generate a dynamic list of the last 10 years
+       $currentYear = date('Y');
+       $years = range($currentYear, $currentYear - 9);
+       $year_options = ['' => $this->t('--Top Movies by year--')];
+       //store the last 10 years in array
+       foreach ($years as $year) {
+        $dateValue = "$year-01-01";
+        $year_options[$dateValue] = $this->t('@year year Movies', ['@year' => $year]);
+       }
+
+       $form['date'] = array(
             '#title' =>'Search by date',
             '#type' => 'select',
             '#description' => '',
             '#attributes' => array('class'=>array('date-option')),
-            '#options' => array(
-              '' => t('--Top Movies by year--'),
-              '2023-01-01' => t('2023 year Movies'),
-              '2024-01-01' => t('2024 year Movies'),
-              '2025-01-01' => t('2025 year Movies'),
-              '2026-01-01' => t('2026 year Movies'),
-              '2027-01-01' => t('2027 year Movies')), 
+            '#options' => $year_options, 
             '#default_value'=> '',
             '#ajax' => [
                 'callback' => '::renderItems',

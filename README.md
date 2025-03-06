@@ -34,6 +34,7 @@ src/Model/MovieModel.php     # Handles database queries
 src/Form/FiltersForm.php     # Implements AJAX-based filtering
 src/Controller/MoviesController.php  # Controls movie data display
 src/Service/MovieApiService.php    #this class is responsible for API calls with IMDb
+modules/custom/best_movies/tests  #this folder contains all the tests for module best_movies
 ```
 
 ## 🚧 Setup & Installation
@@ -59,10 +60,10 @@ src/Service/MovieApiService.php    #this class is responsible for API calls with
    drush cache:rebuild
    ```
 
-## ✅ Running Unit Tests (In Progress)
-Once the unit tests are fully implemented:
+## ✅ Running Unit Tests 
+:when you run the command inside container, you will find the results of all the tests 
 ```bash
-phpunit --configuration core/phpunit.xml modules/custom/best_movies/tests/src/Unit
+.vendor/bin/phpunit
 ```
 
 ## 📌 Future Improvements
