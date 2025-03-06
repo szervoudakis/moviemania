@@ -1,7 +1,7 @@
 # Moviemania - A Drupal-Based Movie Management System
 
 ## 📌 Project Overview
-**Movie Mania** is a Drupal-based movie management system designed to fetch, store, and display movie data efficiently. This project demonstrates expertise in **Drupal module development**, **API integration**, **custom theming**, and **modern PHP development practices**.
+**Moviemania** is a Drupal-based movie management system designed to fetch, store, and display movie data efficiently. This project demonstrates expertise in **Drupal module development**, **API integration**, **custom theming**, and **modern PHP development practices**.
 
 ## 🚀 Features
 - **Custom Theme (`movie_mania_theme`)** - A tailored Drupal theme for a modern and user-friendly experience.
@@ -10,7 +10,7 @@
   - `redirection` - Redirects users to the front page after login.
 - **Structured MVC Architecture** - Organizing controllers, models, and services for maintainability.
 - **Dependency Injection (DI)** - Improving testability and reusability by injecting dependencies where needed.
-- **Unit Testing (In Progress)** - Implementing tests for key components like `MovieModel`.
+- **Unit Testing** - Implementing tests for key components like `MovieModel`.
 - **AJAX-Based Filtering** - Users can filter movies dynamically via an AJAX-driven form.
 
 ## 🛠️ Technologies Used
@@ -27,14 +27,14 @@
 
 ## 📂 Project Structure
 ```
-modules/custom/best_movies/  # Handles movie data fetching & storage
-modules/custom/redirection/   # Handles user redirection
-movie_mania_theme/           # Custom theme for frontend
-src/Model/MovieModel.php     # Handles database queries
-src/Form/FiltersForm.php     # Implements AJAX-based filtering
+modules/custom/best_movies/       # Handles movie data fetching & storage
+modules/custom/redirection/        # Manages user redirection logic
+movie_mania_theme/                # Custom Drupal theme for frontend presentation
+src/Model/MovieModel.php          # Database interaction & queries
+src/Form/FiltersForm.php          # Implements AJAX-based filtering
 src/Controller/MoviesController.php  # Controls movie data display
-src/Service/MovieApiService.php    #this class is responsible for API calls with IMDb
-modules/custom/best_movies/tests  #this folder contains all the tests for module best_movies
+src/Service/MovieApiService.php   # Manages API calls with IMDb
+modules/custom/best_movies/tests  # PHPUnit & Drupal tests for the `best_movies` module
 ```
 
 ## 🚧 Setup & Installation
@@ -61,10 +61,11 @@ modules/custom/best_movies/tests  #this folder contains all the tests for module
    ```
 
 ## ✅ Running Unit Tests 
-:when you run the command inside container, you will find the results of all the tests 
+Run PHPUnit tests inside the DDEV container:
 ```bash
-.vendor/bin/phpunit
+vendor/bin/phpunit
 ```
+This command will execute all defined test cases and provide a summary of results.
 
 ## 📌 Future Improvements
 - Complete PHPUnit test coverage
