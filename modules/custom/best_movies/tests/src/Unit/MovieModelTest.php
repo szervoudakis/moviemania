@@ -1,106 +1,82 @@
 <?php
+
 namespace Drupal\Tests\best_movies\Unit;
 
-use Drupal\Tests\UnitTestCase;
+use Drupal\Core\Database\Connection;
+use PHPUnit\Framework\TestCase;
+use Drupal\best_movies\Model\MovieModel;
+use Drupal\Core\Database\Query\SelectInterface;
+use Drupal\Core\Database\StatementInterface;
 
-class MovieModelTest extends UnitTestCase {
+class MovieModelTest extends TestCase {
 
-  public function testSomething() {
-    $this->assertTrue(TRUE);
+  /**
+   * @var \PHPUnit\Framework\MockObject\MockObject|\Drupal\Core\Database\Connection
+   */
+  protected $database;
+
+  /**
+   * @var \Drupal\best_movies\Model\MovieModel
+   */
+  protected $movieModel;
+
+  /**
+   * Set up the test case
+   */
+  protected function setUp(): void {
+    // Create a mock of the database connection.
+    $this->database = $this->createMock(Connection::class);
+    
+    // Create an instance of MovieModel with the mocked database connection.
+    $this->movieModel = new MovieModel($this->database);
   }
 
+  /**
+   * Test getMovies method
+   */
+  public function testGetMovies() {
+    // Set up expected query result (mocked data).
+    $mockResults = [
+      (object) [
+        'title' => 'Test Movie 1',
+        'nid' => 1,
+        'release_date' => '2025-01-01',
+        'field_type' => 'Action',
+        'description' => 'Test Description 1',
+      ],
+      (object) [
+        'title' => 'Test Movie 2',
+        'nid' => 2,
+        'release_date' => '2025-02-01',
+        'field_type' => 'Comedy',
+        'description' => 'Test Description 2',
+      ],
+    ];
+
+    // Create a mock for the Select query.
+    $selectMock = $this->createMock(SelectInterface::class);
+
+    // Create a mock for the Statement result.
+    $statementMock = $this->createMock(StatementInterface::class);
+    
+    // Configure the statement mock to return the mock results when fetchAll is called.
+    $statementMock->method('fetchAll')
+      ->willReturn($mockResults);
+
+    // Configure the select mock to return the statement mock when execute is called.
+    $selectMock->method('execute')
+      ->willReturn($statementMock);
+
+    // Configure the database mock to return the select mock when select is called.
+    $this->database->method('select')
+      ->willReturn($selectMock);
+
+    // Run the getMovies method.
+    $movies = $this->movieModel->getMovies();
+
+    // Assert that the results are as expected.
+    $this->assertCount(2, $movies);
+    $this->assertEquals('Test Movie 1', $movies[0]->title);
+    $this->assertEquals('Test Movie 2', $movies[1]->title);
+  }
 }
-// namespace Drupal\Tests\best_movies\Unit;
-
-// use Drupal\Tests\UnitTestCase;
-// use Drupal\best_movies\Model\MovieModel;
-// use Drupal\Core\Database\Connection;
-// use PHPUnit\Framework\MockObject\MockObject;
-
-// /**
-//  * @group best_movies
-//  * Unit tests for the MovieModel class.
-//  */
-// class MovieModelTest extends UnitTestCase {
-
-//   /**
-//    * The mock database connection.
-//    *
-//    * @var \Drupal\Core\Database\Connection|MockObject
-//    */
-//   protected $database;
-
-//   /**
-//    * The MovieModel service.
-//    *
-//    * @var \Drupal\best_movies\Model\MovieModel
-//    */
-//   protected $movieModel;
-
-//   /**
-//    * Set up the test.
-//    */
-//   protected function setUp(): void {
-//     parent::setUp();
-
-//     // Create a mock database connection.
-//     $this->database = $this->createMock(Connection::class);
-
-//     // Create the MovieModel with the mocked database service.
-//     $this->movieModel = new MovieModel($this->database);
-//   }
-
-//   /**
-//    * Test getMovies method.
-//    */
-//   public function testGetMovies() {
-//     // Create a mock result set for the query.
-//     $result = [
-//       (object) ['title' => 'Movie 1', 'nid' => 1],
-//       (object) ['title' => 'Movie 2', 'nid' => 2],
-//     ];
-
-//     // Mock the query execution to return the mock result.
-//     $query = $this->createMock(\Drupal\Core\Database\Query\QueryInterface::class);
-//     $query->expects($this->once())
-//       ->method('execute')
-//       ->willReturn($result);
-
-//     // Mock the database connection to return the query mock.
-//     $this->database->expects($this->once())
-//       ->method('select')
-//       ->willReturn($query);
-
-//     // Call the getMovies method and assert the result.
-//     $movies = $this->movieModel->getMovies();
-//     $this->assertCount(2, $movies);
-//     $this->assertEquals('Movie 1', $movies[0]->title);
-//     $this->assertEquals('Movie 2', $movies[1]->title);
-//   }
-
-//   /**
-//    * Test getUpcomingMovies method with a specific year.
-//    */
-//   public function testGetUpcomingMovies() {
-//     // Mock the result set for upcoming movies.
-//     $result = [
-//       (object) ['title' => 'Upcoming Movie 1', 'nid' => 1],
-//     ];
-
-//     // Mock the query execution for the upcoming movies query.
-//     $query = $this->createMock(\Drupal\Core\Database\Query\QueryInterface::class);
-//     $query->expects($this->once())
-//       ->method('execute')
-//       ->willReturn($result);
-
-//     // Mock the database connection to return the query mock.
-//     $this->database->expects($this->once())
-//       ->method('select')
-//       ->willReturn($query);
-
-//     // Call the getUpcomingMovies method with a year filter.
-//     $upcomingMovies = $this->movieModel->getUpcomingMovies('2023');
-//     $this->assertCount(1, $upcomingMovies);
-//     $this->assertEquals('Upcoming Movie 1', $upcomingMovies[0]->title);
-//   }
-// }

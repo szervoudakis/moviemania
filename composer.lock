@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b179edd85256962d43dfc28dace9bf5",
+    "content-hash": "0704413824e8c487c07788b5cd575c17",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6255,34 +6255,6 @@
     ],
     "packages-dev": [
         {
-            "name": "drupal/core-dev",
-            "version": "8.0.0-beta15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/drupal/core-dev.git",
-                "reference": "ef24527e33763588415be5ca0719341ddb23e117"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core-dev/zipball/ef24527e33763588415be5ca0719341ddb23e117",
-                "reference": "ef24527e33763588415be5ca0719341ddb23e117",
-                "shasum": ""
-            },
-            "conflict": {
-                "webflo/drupal-core-require-dev": "*"
-            },
-            "type": "metapackage",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "require-dev dependencies from drupal/drupal; use in addition to drupal/core-recommended to run tests from drupal/core.",
-            "support": {
-                "source": "https://github.com/drupal/core-dev/tree/8.0.0-beta15"
-            },
-            "time": "2019-10-31T10:23:10+00:00"
-        },
-        {
             "name": "myclabs/deep-copy",
             "version": "1.13.0",
             "source": {
@@ -7851,9 +7823,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "drupal/core-dev": 10
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {},

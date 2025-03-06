@@ -24,6 +24,11 @@
     "conflict": {
         "drupal/drupal": "*"
     },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\best_movies\\": "modules/custom/best_movies/src"
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
@@ -94,7 +99,6 @@
         }
     },
     "require-dev": {
-        "drupal/core-dev": "^8.0@beta",
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "^10"
     }
 }

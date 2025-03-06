@@ -1,8 +1,10 @@
 <?php
+
 namespace Drupal\best_movies\Model;
 
 use Drupal\Core\Database\Connection;
 use DateTime;
+
 class MovieModel {
   
     protected $database;
