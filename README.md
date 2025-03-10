@@ -30,10 +30,10 @@
 modules/custom/best_movies/       # Handles movie data fetching & storage
 modules/custom/redirection/        # Manages user redirection logic
 movie_mania_theme/                # Custom Drupal theme for frontend presentation
-src/Model/MovieModel.php          # Database interaction & queries
-src/Form/FiltersForm.php          # Implements AJAX-based filtering
-src/Controller/MoviesController.php  # Controls movie data display
-src/Service/MovieApiService.php   # Manages API calls with IMDb
+modules/custom/best_movies/src/Model/MovieModel.php          # Database interaction & queries
+modules/custom/best_movies/src/Form/FiltersForm.php          # Implements AJAX-based filtering
+modules/custom/best_movies/src/Controller/MoviesController.php  # Controls movie data display
+modules/custom/best_movies/src/Service/MovieApiService.php   # Manages API calls with IMDb
 modules/custom/best_movies/tests  # PHPUnit & Drupal tests for the `best_movies` module
 ```
 
