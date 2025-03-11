@@ -31,6 +31,7 @@ modules/custom/best_movies/       # Handles movie data fetching & storage
 modules/custom/redirection/        # Manages user redirection logic
 movie_mania_theme/                # Custom Drupal theme for frontend presentation
 modules/custom/best_movies/src/Model/MovieModel.php          # Database interaction & queries
+modules/custom/best_movies/src/Commands/BatchCommands.php          # this class is responsible for creation custom drush commands 
 modules/custom/best_movies/src/Form/FiltersForm.php          # Implements AJAX-based filtering
 modules/custom/best_movies/src/Controller/MoviesController.php  # Controls movie data display
 modules/custom/best_movies/src/Service/MovieApiService.php   # Manages API calls with IMDb
