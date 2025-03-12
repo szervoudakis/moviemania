@@ -1,6 +1,46 @@
 <?php 
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\Asset\LibraryDiscoveryInterface;
+use Drupal\Core\Url;
 
+function movie_mania_theme_preprocess_html(array &$variables) {
+  $theme_path = DRUPAL_ROOT . "/themes/movie_mania_theme";
+  $react_build_path = $theme_path . '/react_app/build/static/js/';
+  $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+  // take http host
+  $host = $_SERVER['HTTP_HOST'];
+
+  // site url is protocol and host
+  $siteUrl = $protocol . $host;
+  // Find the most recent file main.[hash].js
+  $files = glob($react_build_path . 'main.*.js');
+
+  if (!empty($files)) {
+      $latest_js = reset($files);
+      $relative_js_path = str_replace(DRUPAL_ROOT, '', $latest_js);
+      // Generate the route dynamically using the Url class.
+      $route_url = \Drupal\Core\Url::fromRoute('movies_page')->toString();
+      $route_movies = \Drupal\Core\Url::fromRoute("best_movies.top_movies")->toString();
+
+      // Attach settings and libraries.
+      $variables['#attached']['drupalSettings']['movieMania'] = [
+          'topMoviesRoute' => $route_url,
+          'top3movies'=>$route_movies,  
+      ];
+      $variables['#attached']['library'][] = 'movie_mania_theme/react_app';
+      $variables['#attached']['html_head'][] = [
+          [
+              '#tag' => 'script',
+              '#attributes' => ['src' =>  $siteUrl. $relative_js_path],
+          ],
+          'react_app',
+      ];
+
+      
+  }
+}
+ 
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for form templates.
  */
@@ -15,7 +55,18 @@ function movie_mania_theme_theme_suggestions_form_alter(array &$suggestions, arr
     // Check if the id_form exists in the $form_suggestions_array array.
     $id_form = $variables['element']['#form_id'];
     if (isset($form_suggestions_array[$id_form])) {
-        
         $suggestions[] = $form_suggestions_array[$id_form];
     }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function movie_mania_theme_theme($existing, $type, $theme, $path) {
+    return [
+      'react_homepage' => [
+        'template' => 'layout/react_homepage', 
+        'render element' => 'content',
+      ],
+    ];
+  }

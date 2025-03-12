@@ -1,3 +1,10 @@
+react_homepage:
+  path: '/home'
+  defaults:
+    _controller: '\Drupal\best_movies\Controller\MoviesController::homepage'
+  requirements:
+    _permission: 'access content'  
+    
 movies_page:
   path: '/best-movies'
   defaults:
@@ -6,3 +13,11 @@ movies_page:
     _permission: 'access content'
   options:
     no_cache: TRUE
+
+best_movies.top_movies:
+  path: '/top-3-movies'
+  defaults:
+    _controller: 'Drupal\best_movies\Controller\TopMoviesController::getTopMovies'
+    _title: 'Top 3 Movies'
+  requirements:
+    _permission: 'access content'

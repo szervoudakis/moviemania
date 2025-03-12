@@ -8,7 +8,7 @@ class MovieApiService {
     protected $httpClient;
     protected $apiKey;
     protected $apiHost;
-    //dependency injection for httpCliend and configs for apikey apihost
+    //dependency injection for httpClient and configs for apikey apihost
     public function __construct(Client $httpClient, ConfigFactoryInterface $configFactory) {
         $this->httpClient = $httpClient;
         $this->apiKey = $configFactory->get('best_movies.settings')->get('api_key');
@@ -21,8 +21,6 @@ class MovieApiService {
             'x-rapidapi-host' => $this->apiHost,
             'x-rapidapi-key' => $this->apiKey,
         ];
-
-        // echo $this->apiKey;
         
         $response = $this->httpClient->request('GET', $url, ['headers' => $headers]);
 

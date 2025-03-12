@@ -1,0 +1,4 @@
+services:
+  profile.profile_model:
+    class: Drupal\profile\Model\UserModel
+    arguments: ['@database']

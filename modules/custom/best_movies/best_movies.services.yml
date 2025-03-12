@@ -11,4 +11,8 @@ services:
 
   best_movies.movie_api_service:
     class: 'Drupal\best_movies\Service\MovieApiService'
-    arguments: ['@http_client', '@config.factory']  
+    arguments: ['@http_client', '@config.factory']
+
+  best_movies.top_movies_service:
+   class: Drupal\best_movies\Service\TopMoviesService
+   arguments: ['@best_movies.movie_model']    

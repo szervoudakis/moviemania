@@ -11,3 +11,10 @@ bootstrap-assets:
       css/bootstrap.min.css: {}
   js:
     js/bootstrap.min.js: {}
+
+react_app:
+  version: 1.x
+  js: { }
+  css: {  }
+  dependencies:
+    - core/drupal

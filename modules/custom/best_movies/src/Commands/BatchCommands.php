@@ -51,7 +51,7 @@ class BatchCommands extends DrushCommands {
      * @command best_movies:deletemovies
      * @aliases deletemovies
      * @usage best_movies:deletemovies
-     *   Deletes all nodes of type 'movies'.
+     * Deletes all nodes of type 'movies'.
      */
     public function deleteMovies() {
         $contentType = 'movies';

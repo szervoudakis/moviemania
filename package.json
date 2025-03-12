@@ -1,0 +1,12 @@
+{
+  "name": "html",
+  "version": "1.0.0",
+  "description": "## 📌 Project Overview **Moviemania** is a Drupal-based movie management system designed to fetch, store, and display movie data efficiently. This project demonstrates expertise in **Drupal module development**, **API integration**, **custom theming**, and **modern PHP development practices**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

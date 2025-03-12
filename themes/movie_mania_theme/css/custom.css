@@ -457,3 +457,69 @@ nav {
     font-size: medium;
   }
 }
+
+.header-custom{
+  color:#007bff;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.hero {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero h1 {
+  font-size: 3em;
+}
+
+.cta-button {
+  background-color: #e50914;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.about, .movies {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.about h2, .movies h2 {
+  margin-bottom: 20px;
+}
+
+.movie-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.movie-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+
+.homepage_image {
+  background-image: url('/sites/default/files/images/homepage_image.jpg');
+  background-size: cover; 
+  background-position: center; 
+  width: 100%; 
+  height: 400px; 
+}

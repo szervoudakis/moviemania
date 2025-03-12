@@ -21,3 +21,6 @@
 /sites/default/files/js/*
 /modules/custom/best_movies/config/*
 /vendor
+/themes/movie_mania_theme/react_app/node_modules
+/themes/movie_mania_theme/react_app/build
+
