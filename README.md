@@ -53,7 +53,6 @@ movie_mania_theme/movie_mania_theme.theme.php  # Passes React app and Drupal rou
 2. Navigate to the project directory and start DDEV:
    ```bash
    cd movie-mania
-   ddev start
    ```
 3. Install dependencies:
    ```bash
@@ -63,10 +62,20 @@ movie_mania_theme/movie_mania_theme.theme.php  # Passes React app and Drupal rou
    ```bash
    ddev import-db --src=final.sql.gz
    ```
-5. Clear Drupal caches:
+5. Install Node.js dependencies for React app
    ```bash
-   drush cache:rebuild
+   cd themes/movie_mania_theme/react_app
+   npm install
    ```
+6. Before run project, build react app
+   ```bash
+   cd themes/movie_mania_theme/react_app
+   npm run build
+   ```
+7. Run Project, in root of the project type the following
+   ```bash
+     ddev start
+   ```      
 
 ## ✅ Running Unit Tests 
 Run PHPUnit tests inside the DDEV container:
@@ -77,22 +86,22 @@ This command will execute all defined test cases and provide a summary of result
 
 ## 🔍 PHP Architecture
 - **MovieModel** Handles all database interactions and queries, such as:
-   1)Fetching upcoming movies
-   2)Fetching top 250 movies 
-   3)Inserting movie data from the API
-   4)Deleting movie data from the Movies content type
+ 1. Fetching upcoming movies
+ 2. Fetching top 250 movies 
+ 3. Inserting movie data from the API
+ 4. Deleting movie data from the Movies content type
 
 - **FiltersForm** Implements AJAX-based filtering for the movie data.
 
 - **MoviesController**  Controls the movie data display and returns the data to the front-end. For example:
-   1)Loading the React app on the homepage (react_homepage template).
-   2)Fetching movies and rendering them on the movies page with the movies-page.html.twig template.
+  1. Loading the React app on the homepage (react_homepage template).
+  2. Fetching movies and rendering them on the movies page with the movies-page.html.twig template.
 
 - **MovieApiService**  Manages the API calls to fetch movie data from IMDb using RapidAPI. Dependency injection is used for configuration and API client setup.
 
 ## ⚛️ React Architecture
 The React app is progressively decoupled from Drupal and resides in the movie_mania_theme/react_app folder:
-    1)App Structure:
+   1. App Structure:
          ```
          react_app/src/App.js - The main entry point for the React app.
          react_app/src/pages/Home.js - Home page component.
