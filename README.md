@@ -5,14 +5,14 @@
 **Drupal module development**, **API integration**, **custom theming**,**modern PHP development practices** **Progressively decoupled React frontend**.
 
 ## 🚀 Features
-- **Custom Theme (`movie_mania_theme`)** - A tailored Drupal theme for a modern and user-friendly experience.
-- **Custom Modules:**
-  - `best_movies` - Fetches movie data from an external API and stores it in a custom content type.
-  - `redirection` - Redirects users to the front page after login.
+- **Custom Theme (movie_mania_theme)** - A tailored Drupal theme for a modern and user-friendly experience.
+- **Custom Modules**:
+  - **best_movies** - Fetches movie data from an external API and stores it in a custom content type.
+  - **redirection** - Redirects users to the front page after login.
 - **Structured MVC Architecture** - Organizing controllers, models, and services for maintainability.
 - **Dependency Injection (DI)** - Improving testability and reusability by injecting dependencies where needed.
-- **Unit Testing** - Implementing tests for key components like `MovieModel`.
-- **AJAX-Based Filtering** - Users can filter movies dynamically via an AJAX-driven form.
+- **Unit Testing** - Implementing tests for key components like MovieModel.
+- **Dynamic Filtering via API** - Users can filter movies by year through a dynamic, AJAX-driven form that makes API requests to fetch filtered results.
 - **Progressively Decoupled Frontend** - React.js is used for dynamic subpages like the homepage and top 250 movies page.
 
 ## 🛠️ Technologies Used
