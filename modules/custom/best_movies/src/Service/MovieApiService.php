@@ -26,4 +26,5 @@ class MovieApiService {
 
         return json_decode($response->getBody()->getContents(), true);
     }
+
 }

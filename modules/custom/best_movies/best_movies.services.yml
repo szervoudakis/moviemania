@@ -1,7 +1,7 @@
 services:
   best_movies.commands:
     class: \Drupal\best_movies\Commands\BatchCommands
-    arguments: ['@best_movies.movie_api_service','@best_movies.movie_model']
+    arguments: ['@best_movies.movie_api_service','@best_movies.movie_model','@best_movies.top_movies_service']
     tags:
       - { name: drush.command }
 

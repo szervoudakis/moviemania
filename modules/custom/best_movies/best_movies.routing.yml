@@ -17,7 +17,29 @@ movies_page:
 best_movies.top_movies:
   path: '/top-3-movies'
   defaults:
-    _controller: 'Drupal\best_movies\Controller\TopMoviesController::getTopMovies'
+    _controller: 'Drupal\best_movies\Controller\TopMoviesController::getTop3Movies'
     _title: 'Top 3 Movies'
   requirements:
-    _permission: 'access content'
+    _permission: 'authenticated'
+
+best_movies.top_movies_all:
+  path: '/top-movies'
+  defaults:
+    _controller: 'Drupal\best_movies\Controller\TopMoviesController::getTopMovies'
+  requirements:
+    _permission: 'authenticated'
+
+best_movies.top_movies_year:
+  path: '/top-movies/{year}'
+  defaults:
+    _controller: 'Drupal\best_movies\Controller\TopMoviesController::getTopMoviesByYear'
+  requirements:
+    _permission: 'authenticated'
+
+years:
+  path: '/years'
+  defaults:
+    _controller: 'Drupal\best_movies\Controller\MoviesController::getAllyears'
+  requirements:
+    _permission: 'authenticated'
+

@@ -1,17 +1,20 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import { fetchTopMovies } from '../services/top3MovieService';
-  
+import { fetchData } from '../services/moviesService';
+import MovieCard from "../components/MovieCard"; // Extracted movie UI into a separate component
+ 
 const Home = ({ top3movies }) => {
     const topMoviesRoute = window.drupalSettings.movieMania.topMoviesRoute;
     const username = window.drupalSettings.movieMania.username;
+   
     const [topMovies, setTopMovies] = useState([]);
   
     useEffect(() => {
       if (top3movies) {
-        fetchTopMovies(top3movies).then((movies) => setTopMovies(movies));
+        fetchData(top3movies).then((movies) => setTopMovies(movies));
       }
     }, [top3movies]);
+
 
   return (
     <div>
@@ -47,19 +50,9 @@ const Home = ({ top3movies }) => {
       <h2>Top Movies</h2>
       <div className="movie-list">
         {topMovies.length > 0 ? (
-          topMovies.map((movie) => (
-            <div key={movie.nid} className="movie-card">
-              <h3>{movie.title}</h3>
-              <p><strong>Release Date:</strong> {movie.release_date}</p>
-              <p><strong>Type:</strong> {movie.field_type}</p>
-              <p>{movie.description}</p>
-              <a href={movie.url} target="_blank" rel="noopener noreferrer">
-                View on IMDb
-              </a>
-            </div>
-          ))
-        ) : (
-          <p>Loading top movies...</p>
+            topMovies.map((movie) => <MovieCard key={movie.nid} movie={movie} />)
+          ) : (
+            <p>Loading top movies...</p>
         )}
       </div>
     </section>

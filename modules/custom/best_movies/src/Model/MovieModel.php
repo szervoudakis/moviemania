@@ -61,6 +61,18 @@ class MovieModel {
         return $results;
     }
 
+    public function getAllYears() {
+        $query = $this->database->select('node__field_release_year', 'year');
+        // Use an expression to extract only the year part
+        $query->addExpression("YEAR(field_release_year_value)", "release_date");
+        $query->distinct();
+        $query->orderBy('release_date', 'DESC');
+        $results = $query->execute()->fetchAll();
+     
+        return $results;
+    }
+    
+
     public function insertMovies($results=false){
 
         foreach ($results as $movieData) {

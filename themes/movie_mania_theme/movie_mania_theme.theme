@@ -22,11 +22,15 @@ function movie_mania_theme_preprocess_html(array &$variables) {
       // Generate the route dynamically using the Url class.
       $route_url = \Drupal\Core\Url::fromRoute('movies_page')->toString();
       $route_movies = \Drupal\Core\Url::fromRoute("best_movies.top_movies")->toString();
+      $route_top_movies = \Drupal\Core\Url::fromRoute("best_movies.top_movies_all")->toString();
+      $years=\Drupal\Core\Url::fromRoute("years")->toString();
 
       // Attach settings and libraries.
       $variables['#attached']['drupalSettings']['movieMania'] = [
           'topMoviesRoute' => $route_url,
-          'top3movies'=>$route_movies,  
+          'top3movies'=>$route_movies,
+          'topmovies' =>$route_top_movies, 
+          'years' =>$years, 
       ];
       $variables['#attached']['library'][] = 'movie_mania_theme/react_app';
       $variables['#attached']['html_head'][] = [

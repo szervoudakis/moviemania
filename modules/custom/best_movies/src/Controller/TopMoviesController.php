@@ -24,9 +24,26 @@ class TopMoviesController extends ControllerBase {
     /**
      * Returns top 3 movies as JSON response.
      */
-    public function getTopMovies() {
+    public function getTop3Movies() {
         $topMovies = $this->topMoviesService->getTopThreeMovies();
         return new JsonResponse($topMovies);
+    }
+
+     /**
+     * Returns all top movies as JSON response.
+     */
+    public function getTopMovies() {
+      $topMovies = $this->topMoviesService->getTopMovies();
+      return new JsonResponse($topMovies);
+    }
+
+    /**
+     * Returns all top movies as JSON response.
+     */
+    public function getTopMoviesByYear() {
+      $year = \Drupal::routeMatch()->getParameter('year');
+      $topMovies = $this->topMoviesService->getTopMoviesByYearResponse($year);
+      return new JsonResponse($topMovies);
     }
 
 }

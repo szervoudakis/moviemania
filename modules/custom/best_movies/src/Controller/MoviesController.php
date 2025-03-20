@@ -7,22 +7,27 @@ use Drupal\best_movies\Model\MovieModel;
 use Drupal\best_movies\Form\FiltersForm;
 use DateTime;
 use Drupal\profile\Model\UserModel;
+use Drupal\best_movies\Service\TopMoviesService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MoviesController extends ControllerBase {
 
     protected $movieModel;
+    protected $topMoviesService;
 
     // Constructor with Dependency Injection
-    public function __construct(MovieModel $movieModel, UserModel $userModel) {
+    public function __construct(MovieModel $movieModel, UserModel $userModel, TopMoviesService $topMoviesService) {
         $this->movieModel = $movieModel;
         $this->userModel = $userModel;
+        $this->topMoviesService = $topMoviesService;
     }
 
     // Static method to create the controller with the dependency injection
     public static function create(ContainerInterface $container) {
         return new static(
             $container->get('best_movies.movie_model'),
-            $container->get('profile.profile_model')
+            $container->get('profile.profile_model'),
+            $container->get('best_movies.top_movies_service'),
         );
     }
 
@@ -46,40 +51,41 @@ class MoviesController extends ControllerBase {
     }
     
     
-    // Get Movies from db and return object for template movies-page.html.twig
+    // Get Movies from db and return object for react
     public function renderMovies() {
-        $results = $this->movieModel->getMovies();
-        $filters = \Drupal::formBuilder()->getForm(FiltersForm::class);
-
+       
         return [
             '#theme' => 'movies_page',
-            '#movies' => $results,
-            '#filters' => $filters,
             '#attached' => [
                 'library' => [
-                    'best_movies/moreinfo',
+                    'movie_mania_theme/react_app',
                 ],
             ],
         ];
     }
-
+     /**
+     * Returns all the years JSON response.
+     */
+    public function getAllyears() {
+        $years = $this->topMoviesService->getAllYearsResponse();
+      return new JsonResponse($years);
+    }
     //this function is responsible to send the data to front end
     public function renderSortMovies($value = NULL) {
       $results = [];
 
-      // Use the movie model to get upcoming movies
-      if ($value != '') {
-          $results = $this->movieModel->getUpcomingMovies($value);
-      }
+       // Use the movie model to get upcoming movies
+       //  if ($value != '') {
+       $results = $this->movieModel->getUpcomingMovies($value);
+       //}
 
       return [
-          '#theme' => 'movies_page',
-          '#movies' => $results,
-          '#attached' => [
-              'library' => [
-                  'best_movies/moreinfo',
-              ],
-          ],
-      ];
+        '#theme' => 'movies_page',
+        '#attached' => [
+            'library' => [
+                'movie_mania_theme/react_app',
+            ],
+        ],
+    ];
   }
 }
