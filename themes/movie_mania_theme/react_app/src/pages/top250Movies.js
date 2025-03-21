@@ -59,9 +59,13 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
             ))}
           </select>
         </div>
-
         {/* Movies Grid */}
         <div className="col-md-10" id="movie-items">
+        {selectedYear ? (
+            <h5>Top Movies until {selectedYear}</h5>
+          ) : (
+            <h5>All Time Top Movies</h5>
+          )}
           {topMovies.length > 0 ? (
             <>
               <div className="row">
@@ -75,6 +79,12 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
                       <div className="card-field">
                         <h4>Release Date</h4>
                         <p>{movie.release_date}</p>
+                      </div>
+                      <div className="card-field">
+                        <h4>View on IMDb</h4>
+                      <a href={movie.url} target="_blank" rel="noopener noreferrer">
+                       View on IMDb
+                      </a>
                       </div>
                     </div>
                   </div>
