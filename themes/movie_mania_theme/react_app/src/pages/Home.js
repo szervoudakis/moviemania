@@ -33,18 +33,7 @@ const Home = ({ top3movies }) => {
           and display movie data. It combines modern development practices and a user-friendly design to offer a seamless experience.
         </p>
       </section>
-
-      {/* Features Section */}
-      <section id="features" className="features">
-        <h2>Features</h2>
-        <ul>
-          <li>Custom Drupal modules for streamlined movie data management</li>
-          <li>AJAX-powered movie filtering for quick searches</li>
-          <li>Real-time API integration with dynamic updates</li>
-          <li>Custom theming for a modern and clean interface</li>
-        </ul>
-      </section>
-
+        
       {/* Movies Section */}
       <section id="movies" className="movies">
       <h2>Top Movies</h2>
