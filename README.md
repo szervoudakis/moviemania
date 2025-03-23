@@ -91,8 +91,6 @@ This command will execute all defined test cases and provide a summary of result
  3. Inserting movie data from the API
  4. Deleting movie data from the Movies content type
 
-- **FiltersForm** Implements AJAX-based filtering for the movie data.
-
 - **MoviesController**  Controls the movie data display and returns the data to the front-end. For example:
   1. Loading the React app on the homepage (react_homepage template).
   2. Fetching movies and rendering them on the movies page with the movies-page.html.twig template.
@@ -100,13 +98,13 @@ This command will execute all defined test cases and provide a summary of result
 - **MovieApiService**  Manages the API calls to fetch movie data from IMDb using RapidAPI. Dependency injection is used for configuration and API client setup.
 
 ## ⚛️ React Architecture
-The React app is progressively decoupled from Drupal and resides in the movie_mania_theme/react_app folder:
+The React app is progressively decoupled from Drupal and resides in the themes/movie_mania_theme/react_app folder:
    1. App Structure:
          ```
          react_app/src/App.js - The main entry point for the React app.
-         react_app/src/pages/Home.js - Home page component.
-         react_app/src/services/top3MovieService.js - Service for fetching top 3 movie data.
-         react_app/src/App.css - Styling for the React components.
+         react_app/src/pages/ - The folder contains all the pages of the React app
+         react_app/src/services/moviesService.js - Fetches data from the provided API URL.
+         react_app/src/components/  - This folder contains all reusable UI components used throughout the application.
         ```
 The React app is integrated into Drupal via dynamic JavaScript injection, where routes from Drupal are passed to the React frontend.
 
