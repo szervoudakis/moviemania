@@ -112,7 +112,8 @@ The React app is integrated into Drupal via dynamic JavaScript injection, where 
 - Complete PHPUnit test coverage
 - Implement advanced caching strategies
 - Enhance AJAX-based filtering with more parameters
-- Implement React to the Front-end
+- Implement Watchlist functionality 
+- Implement MyProfile page
 
 ## 🏆 About the Author
 This project is built and maintained by **Stefanos Zervoudakis**, a Full-Stack Developer specializing in **Drupal, PHP, and modern web development techniques**. Passionate about **clean code, best practices, and performance optimization**.
