@@ -31,17 +31,41 @@
 
 ## 📂 Project Structure
 ```
-modules/custom/best_movies/       # Handles movie data fetching & storage
-modules/custom/redirection/        # Manages user redirection logic
-movie_mania_theme/                # Custom Drupal theme for frontend presentation
-src/Model/MovieModel.php          # Database interaction & queries
-src/Form/FiltersForm.php          # Implements AJAX-based filtering
-src/Controller/MoviesController.php  # Controls movie data display
-src/Service/MovieApiService.php   # Manages API calls with IMDb
-modules/custom/best_movies/tests  # PHPUnit & Drupal tests for the `best_movies` module
-modules/custom/best_movies/Commands/BatchCommands.php # Custom Drush commands
-movie_mania_theme/react_app       # React app for frontend components
-movie_mania_theme/movie_mania_theme.theme.php  # Passes React app and Drupal routes using dynamically injected JavaScript
+modules/custom/
+├── best_movies/ # Custom module for fetching and managing movie data
+│   ├── src/
+│   │   ├── Controller/    # Contains controllers to handle incoming requests and responses
+│   │   ├── Model/         # Contains classes for data interactions (e.g., database queries, API calls)
+│   │   ├── Service/       # Contains services for handling business logic and reusable functionality
+│   │   └── Form/          # Contains forms (e.g., filters, user input forms) for frontend interactions
+│   └── tests/
+├── redirection/
+├── profile/
+│   ├── src/
+│   │   ├── Controller/              # Controller for handling user profile-related requests
+│   │   ├── Model/                   # Model to interact with user profile data (e.g., fetch or store user info)
+│   │   ├── Form/                     # Forms to capture user input for updating profile (e.g., username, email)
+theme/movie_mania_theme/
+react_app/
+├── public/                           # Static files
+│   ├── index.html                    # Main HTML file for the React app
+│   └── favicon.ico                   # Favicon
+├── src/
+│   ├── assets/                       # Static assets like images, icons, etc.
+│   │   └── logo.svg                  # Example logo asset
+│   ├── components/                   # Reusable UI components
+│   │   ├── Header.js                 # Header component
+│   │   ├── MovieCard.js              # Movie card component
+│   │   └── MovieList.js              # Movie list component
+│   ├── pages/                        # Individual pages of the app
+│   │   ├── HomePage.js               # Homepage component
+│   │   ├── MoviesPage.js             # Page displaying movies
+│   │   └── Top250Page.js             # Page displaying top 250 movies
+│   ├── services/                     # API calls and services
+│   │   └── moviesService.js          # Handles API calls for movies
+│   ├── App.js                        # Main entry point for the React app
+│   ├── App.css                       # Global styles for the app
+│   └── index.js                      # React app entry point
 
 ```
 

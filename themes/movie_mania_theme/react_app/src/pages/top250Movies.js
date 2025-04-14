@@ -34,12 +34,10 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
       movies.forEach((movie) => {
         initialWatchlist[movie.movie_id] = false;
       });
-      console.log("Initial Watchlist:", initialWatchlist);
       try {
         // Fetch user's watchlist
         const res = await fetch("/movies/watchlist/");
         const data = await res.json();
-        console.log(data);
   
         // Update the watchlist state based on the user's watchlist
         data.forEach((entry) => {
