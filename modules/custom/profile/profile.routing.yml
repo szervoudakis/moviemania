@@ -1,0 +1,8 @@
+profile:
+  path: '/my-profile'
+  defaults:
+    _form: '\Drupal\profile\Form\Profile'
+  requirements:
+    _role: 'authenticated+administrator'
+  options:
+    no_cache: TRUE

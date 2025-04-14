@@ -22,11 +22,13 @@ class MovieModel {
         $query->join('node__body', 'bd', 'n.nid = bd.entity_id');
         $query->join('node__field_type', 'mt', 'n.nid = mt.entity_id');
         $query->join('node__field_url_imdb', 'l', 'n.nid = l.entity_id');
+        $query->join('node__field_movie_id', 'movie_id', 'n.nid = movie_id.entity_id');
         $query->condition('n.type', 'movies');
         $query->addField('rd', 'field_release_year_value', 'release_date');
         $query->addField('mt', 'field_type_value', 'field_type');
         $query->addField('bd', 'body_value', 'description');
         $query->addField('l', 'field_url_imdb_uri', 'url');
+        $query->addField('movie_id', 'field_movie_id_value', 'movie_id');
 
         // Apply the year filter if provided
         if ($year != '') {
@@ -57,7 +59,7 @@ class MovieModel {
         $query = $this->buildMovieQuery(); //create the base query for movie table
         
         $results = $query->execute()->fetchAll();
-
+        
         return $results;
     }
 
@@ -95,6 +97,7 @@ class MovieModel {
                     'format' => 'full_html', 
                 ],
                 'field_release_year' => $formattedDate ? ['value' => $formattedDate] : null,
+                'field_movie_id' => $movieData['id'],
             ]);
         
             $node->save();
@@ -118,6 +121,35 @@ class MovieModel {
         }
     
         return 0;
+    }
+    //this function is responsible for inserting data in watchlist table 
+    public function addToWatchList($movie_id,$uid){
+         $this->database->insert('watchlist')
+         ->fields([
+            'user_id'=>$uid,
+            'movie_id'=>$movie_id,
+         ])
+         ->execute();
+       return 1;  
+    }
+    //remove movie from watchlist
+    public function removeFromWatchList($movie_id,$uid){
+        $this->database->delete('watchlist')
+        ->condition('user_id', $uid)
+        ->condition('movie_id', $movie_id)
+        ->execute();
+        return 1;
+    }
+
+    //returns all cols for watchlist user's 
+    public function myWatchlist($uid){
+        $results=$this->database->select('watchlist','w')
+        ->fields('w',['id','movie_id'])
+        ->condition('w.user_id',$uid)
+        ->execute()
+        ->fetchAll();
+      
+      return $results;  
     }
     
     

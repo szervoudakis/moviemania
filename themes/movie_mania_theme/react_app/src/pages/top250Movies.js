@@ -5,9 +5,10 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
   const [topMovies, setTopMovies] = useState([]);
   const [allYears, setAllYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState("");
-  const [visibleMovies, setVisibleMovies] = useState(6); // Set 6 movies initially
+  const [visibleMovies, setVisibleMovies] = useState(6);
+  const [watchlist, setWatchlist] = useState({}); // movie_id: 
 
-  // Fetch the data from APIs (movies and years)
+  // Fetch the data from APIs (years)
   useEffect(() => {
     const fetchDataFromApis = async () => {
       if (api_url_years) {
@@ -18,38 +19,81 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
     fetchDataFromApis();
   }, [api_url_years]);
 
-  // Fetch movies when selectedYear or api_url_movies changes
+  // Fetch movies and the user's watchlist when selectedYear or api_url_movies changes
   useEffect(() => {
     const fetchMovies = async () => {
       let url = api_url_movies;
-      
       if (selectedYear) {
-        // Add the year to the API URL if selected
         url += `/${selectedYear}`;
       }
       const movies = await fetchData(url);
       setTopMovies(movies);
+  
+      const initialWatchlist = {};
+      // Initialize the watchlist for all movies
+      movies.forEach((movie) => {
+        initialWatchlist[movie.movie_id] = false;
+      });
+      console.log("Initial Watchlist:", initialWatchlist);
+      try {
+        // Fetch user's watchlist
+        const res = await fetch("/movies/watchlist/");
+        const data = await res.json();
+        console.log(data);
+  
+        // Update the watchlist state based on the user's watchlist
+        data.forEach((entry) => {
+          if (entry.movie_id in initialWatchlist) {
+            initialWatchlist[entry.movie_id] = true; // Mark as in the watchlist
+          }
+        });
+  
+        setWatchlist(initialWatchlist);
+      } catch (error) {
+        console.error("Error fetching user watchlist:", error);
+      }
     };
-
+  
     if (api_url_movies) {
       fetchMovies();
     }
-  }, [selectedYear, api_url_movies]); // Trigger fetch on selectedYear or api_url_movies change
+  }, [selectedYear, api_url_movies]);
 
   const handleLoadMore = () => {
     setVisibleMovies((prevCount) => prevCount + 6);
+  };
+
+  const handleWatchlistToggle = async (movie_id) => {
+    const isInWatchlist = watchlist[movie_id];
+    const url = isInWatchlist ? "/movies/watchlist/remove" : "/movies/watchlist/add";
+
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ movie_id }),
+      });
+
+      setWatchlist((prevState) => ({
+        ...prevState,
+        [movie_id]: !isInWatchlist,
+      }));
+    } catch (error) {
+      console.error("Error updating watchlist:", error);
+    }
   };
 
   return (
     <div>
       <h2>Top 250 Movies</h2>
       <div className="row">
-        {/* Filters */}
         <div className="col-md-2">
           <select
             className="form-control"
             value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)} // Set the selected year
+            onChange={(e) => setSelectedYear(e.target.value)}
           >
             <option value="">All Years</option>
             {allYears.map((yearObj, index) => (
@@ -59,9 +103,8 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
             ))}
           </select>
         </div>
-        {/* Movies Grid */}
         <div className="col-md-10" id="movie-items">
-        {selectedYear ? (
+          {selectedYear ? (
             <h5>Top Movies until {selectedYear}</h5>
           ) : (
             <h5>All Time Top Movies</h5>
@@ -82,16 +125,28 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
                       </div>
                       <div className="card-field">
                         <h4>View on IMDb</h4>
-                      <a href={movie.url} target="_blank" rel="noopener noreferrer">
-                       View on IMDb
-                      </a>
+                        <a
+                          href={movie.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View on IMDb
+                        </a>
                       </div>
+                      <button
+                        className="btn btn-outline-primary mt-2"
+                        onClick={() => handleWatchlistToggle(movie.movie_id)}
+                      >
+                        {watchlist[movie.movie_id]
+                          ? "Remove from Watchlist"
+                          : "Add to Watchlist"}
+                      </button>
+                       
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Load More Button */}
               {visibleMovies < topMovies.length && (
                 <div className="text-center mt-3">
                   <button className="btn btn-primary" onClick={handleLoadMore}>

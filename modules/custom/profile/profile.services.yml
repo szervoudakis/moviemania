@@ -2,3 +2,7 @@ services:
   profile.profile_model:
     class: Drupal\profile\Model\UserModel
     arguments: ['@database']
+
+  profile.user_controller:
+    class: Drupal\profile\Controller\UserController
+    arguments: ['@current_user','@profile.profile_model']  

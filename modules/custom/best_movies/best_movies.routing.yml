@@ -43,3 +43,28 @@ years:
   requirements:
     _permission: 'authenticated'
 
+best_movies.add_to_watchlist:
+  path: '/movies/watchlist/add'
+  defaults:
+    _controller: '\Drupal\best_movies\Controller\MoviesController::addToWatchlistRequest'
+    _title: 'Add to Watchlist'
+  methods: ['POST']
+  requirements:
+    _permission: 'authenticated'
+
+best_movies.remove_from_watchlist:
+  path: '/movies/watchlist/remove'
+  defaults:
+    _controller: '\Drupal\best_movies\Controller\MoviesController::removeFromWatchlistRequest'
+    _title: 'Remove from Watchlist'
+  methods: ['POST']
+  requirements:
+    _permission: 'authenticated'
+
+best_movies.mywatchlist:
+  path: '/movies/watchlist'
+  defaults:
+    _controller: '\Drupal\best_movies\Controller\MoviesController::myWatchlist'
+    _title: 'Fetch Watchlist'
+  requirements:
+    _permission: 'authenticated'

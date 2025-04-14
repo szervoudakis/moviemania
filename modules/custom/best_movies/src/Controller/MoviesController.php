@@ -9,6 +9,7 @@ use DateTime;
 use Drupal\profile\Model\UserModel;
 use Drupal\best_movies\Service\TopMoviesService;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class MoviesController extends ControllerBase {
 
@@ -71,21 +72,56 @@ class MoviesController extends ControllerBase {
       return new JsonResponse($years);
     }
     //this function is responsible to send the data to front end
-    public function renderSortMovies($value = NULL) {
-      $results = [];
+    // public function renderSortMovies($value = NULL) {
+    //   $results = [];
 
-       // Use the movie model to get upcoming movies
-       //  if ($value != '') {
-       $results = $this->movieModel->getUpcomingMovies($value);
-       //}
+    //    // Use the movie model to get upcoming movies
+    //    //  if ($value != '') {
+    //    $results = $this->movieModel->getUpcomingMovies($value);
+    //    //}
 
-      return [
-        '#theme' => 'movies_page',
-        '#attached' => [
-            'library' => [
-                'movie_mania_theme/react_app',
-            ],
-        ],
-    ];
-  }
+    //   return [
+    //     '#theme' => 'movies_page',
+    //     '#attached' => [
+    //         'library' => [
+    //             'movie_mania_theme/react_app',
+    //         ],
+    //     ],
+    // ];
+    //    }
+    public function addToWatchlistRequest(Request $request) {
+        $data = json_decode($request->getContent(), TRUE);
+        $uid = \Drupal::currentUser()->id();
+        $movie_id = $data['movie_id'] ?? NULL;
+    
+        if (!$uid || !$movie_id) {
+          return new JsonResponse(['error' => 'Invalid request'], 400);
+        }
+    
+        $this->movieModel->addToWatchList($movie_id, $uid);
+        return new JsonResponse(['status' => 'success']);
+    }
+
+    public function removeFromWatchlistRequest(Request $request) {
+        $data = json_decode($request->getContent(), TRUE);
+        $uid = \Drupal::currentUser()->id();
+        $movie_id = $data['movie_id'] ?? NULL;
+    
+        if (!$uid || !$movie_id) {
+          return new JsonResponse(['error' => 'Invalid request'], 400);
+        }
+    
+        $this->movieModel->removeFromWatchList($movie_id, $uid);
+        return new JsonResponse(['status' => 'deleted']);
+    }
+
+    //return array of movies for user's watchlist
+    public function myWatchlist() {
+        
+        $uid = \Drupal::currentUser()->id();
+        $watchlist = $this->movieModel->mywatchlist($uid);
+       //return a JsonResponse with the watchlist data 
+      return new JsonResponse($watchlist);
+    }
+      
 }
