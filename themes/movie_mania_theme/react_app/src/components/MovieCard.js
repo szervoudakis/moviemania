@@ -1,6 +1,6 @@
 import React from "react";
 
-const MovieCard = ({ movie, isInWatchlist, onToggleWatchlist }) => {
+const MovieCard = ({ movie, isInWatchlist, onToggleWatchlist, showWatchlistButton = true }) => {
   return (
     <div className="col-md-5">
       <div className="content-box-rounded">
@@ -19,12 +19,14 @@ const MovieCard = ({ movie, isInWatchlist, onToggleWatchlist }) => {
             </a>
           </div>
         )}
-        <button
-          className="btn btn-outline-primary mt-2"
-          onClick={() => onToggleWatchlist(movie.movie_id)}
-        >
-          {isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
-        </button>
+        {showWatchlistButton && (
+          <button
+            className="btn btn-outline-primary mt-2"
+            onClick={() => onToggleWatchlist(movie.movie_id)}
+          >
+            {isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+          </button>
+        )}
       </div>
     </div>
   );

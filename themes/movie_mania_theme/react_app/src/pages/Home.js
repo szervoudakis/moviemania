@@ -36,15 +36,17 @@ const Home = ({ top3movies }) => {
         
       {/* Movies Section */}
       <section id="movies" className="movies">
-      <h2>Top Movies</h2>
-      <div className="movie-list">
-        {topMovies.length > 0 ? (
-            topMovies.map((movie) => <MovieCard key={movie.nid} movie={movie} />)
-          ) : (
-            <p>Loading top movies...</p>
-        )}
-      </div>
-    </section>
+  <h2>Top Movies</h2>
+  <div className="movie-list row">
+    {topMovies.length > 0 ? (
+      topMovies.map((movie) => (
+        <MovieCard key={movie.nid} movie={movie} showWatchlistButton={false} />
+      ))
+    ) : (
+      <p>Loading top movies...</p>
+    )}
+  </div>
+</section>
 
     </div>
   );

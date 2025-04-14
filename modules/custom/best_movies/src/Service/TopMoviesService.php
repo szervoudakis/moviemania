@@ -12,11 +12,11 @@ class TopMoviesService {
   }
 
   /**
-   * Get the top 3 movies from the database.
+   * Get the top 4 movies from the database.
    */
   public function getTopThreeMovies() {
     $movies = $this->movieModel->getMovies();
-    $top3=array_slice($movies,0,3);
+    $top3=array_slice($movies,0,4);
     return json_encode($top3,TRUE); 
   }
   /**
