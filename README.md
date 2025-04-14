@@ -34,17 +34,17 @@
 modules/custom/
 ├── best_movies/ # Custom module for fetching and managing movie data
 │   ├── src/
-│   │   ├── Controller/    # Contains controllers to handle incoming requests and responses
-│   │   ├── Model/         # Contains classes for data interactions (e.g., database queries, API calls)
-│   │   ├── Service/       # Contains services for handling business logic and reusable functionality
-│   │   └── Form/          # Contains forms (e.g., filters, user input forms) for frontend interactions
+│   │   ├── Controller/              # Contains controllers to handle incoming requests and responses
+│   │   ├── Model/                   # Contains classes for data interactions (e.g., database queries, API calls)
+│   │   ├── Service/                 # Contains services for handling business logic and reusable functionality
+│   │   └── Form/                    # Contains forms (e.g., filters, user input forms) for frontend interactions
 │   └── tests/
 ├── redirection/
 ├── profile/
 │   ├── src/
 │   │   ├── Controller/              # Controller for handling user profile-related requests
 │   │   ├── Model/                   # Model to interact with user profile data (e.g., fetch or store user info)
-│   │   ├── Form/                     # Forms to capture user input for updating profile (e.g., username, email)
+│   │   ├── Form/                    # Forms to capture user input for updating profile (e.g., username, email)
 theme/movie_mania_theme/
 react_app/
 ├── public/                           # Static files
@@ -54,9 +54,7 @@ react_app/
 │   ├── assets/                       # Static assets like images, icons, etc.
 │   │   └── logo.svg                  # Example logo asset
 │   ├── components/                   # Reusable UI components
-│   │   ├── Header.js                 # Header component
 │   │   ├── MovieCard.js              # Movie card component
-│   │   └── MovieList.js              # Movie list component
 │   ├── pages/                        # Individual pages of the app
 │   │   ├── HomePage.js               # Homepage component
 │   │   ├── MoviesPage.js             # Page displaying movies
