@@ -1,15 +1,31 @@
 import React from "react";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, isInWatchlist, onToggleWatchlist }) => {
   return (
-    <div className="movie-card">
-      <h3>{movie.title}</h3>
-      <p><strong>Release Date:</strong> {movie.release_date}</p>
-      <p><strong>Type:</strong> {movie.field_type}</p>
-      <p>{movie.description}</p>
-      <a href={movie.url} target="_blank" rel="noopener noreferrer">
-        View on IMDb
-      </a>
+    <div className="col-md-5">
+      <div className="content-box-rounded">
+        <div className="card-field">
+          <h4>{movie.title}</h4>
+        </div>
+        <div className="card-field">
+          <strong>Release Date:</strong>
+          <p>{movie.release_date}</p>
+        </div>
+        {movie.url && (
+          <div className="card-field">
+            <strong>View on IMDb:</strong>
+            <a href={movie.url} target="_blank" rel="noopener noreferrer">
+              View
+            </a>
+          </div>
+        )}
+        <button
+          className="btn btn-outline-primary mt-2"
+          onClick={() => onToggleWatchlist(movie.movie_id)}
+        >
+          {isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+        </button>
+      </div>
     </div>
   );
 };
