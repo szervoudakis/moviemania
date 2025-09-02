@@ -6,7 +6,6 @@ import MovieCard from "../components/MovieCard"; // Extracted movie UI into a se
 const Home = ({ top3movies }) => {
     const topMoviesRoute = window.drupalSettings.movieMania.topMoviesRoute;
     const username = window.drupalSettings.movieMania.username;
-   
     const [topMovies, setTopMovies] = useState([]);
   
     useEffect(() => {
@@ -14,7 +13,6 @@ const Home = ({ top3movies }) => {
         fetchData(top3movies).then((movies) => setTopMovies(movies));
       }
     }, [top3movies]);
-
 
   return (
     <div>

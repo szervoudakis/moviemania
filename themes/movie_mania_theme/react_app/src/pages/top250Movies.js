@@ -1,43 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { fetchYears, getTopMoviesWithWatchlist } from "../services/moviesService";
 import MovieCard from "../components/MovieCard";
 import YearFilter from "../components/YearFilter";
 
-const Top250Movies = ({ api_url_movies, api_url_years }) => {
-  const [topMovies, setTopMovies] = useState([]);
-  const [allYears, setAllYears] = useState([]);
-  const [selectedYear, setSelectedYear] = useState("");
-  const [visibleCount, setVisibleCount] = useState(6);
-  const [watchlist, setWatchlist] = useState({});
 
+const initialState = {
+   topMovies:[],
+   allYears: [],
+   selectedYear: "",
+   visibleCount:8,
+   watchlist: {},
+}
+//we have one reducer for all the case-states
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_YEARS":
+      return { ...state, allYears: action.payload };
+    case "SET_MOVIES":
+      return { ...state, topMovies: action.payload.movies, watchlist: action.payload.watchlistMap };
+    case "SET_YEAR":
+      return { ...state, selectedYear: action.payload, visibleCount: 8 };
+    case "LOAD_MORE":
+      return { ...state, visibleCount: state.visibleCount + 6 };
+    case "TOGGLE_WATCHLIST":
+      return {
+        ...state,
+        watchlist: {
+          ...state.watchlist,
+          [action.payload]: !state.watchlist[action.payload],
+        },
+      };
+    default:
+      return state;
+  }
+}
+const Top250Movies = ({ api_url_movies, api_url_years }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  //use state for the years
   useEffect(() => {
     const fetchAllYears = async () => {
       const years = await fetchYears(api_url_years);
-      setAllYears(years);
+      dispatch({ type: "SET_YEARS", payload: years });
     };
     if (api_url_years) {
       fetchAllYears();
     }
   }, [api_url_years]);
-
-  useEffect(() => {
+   //fetching movies and watchlist
+   useEffect(() => {
     const fetchMoviesAndWatchlist = async () => {
-      const { movies, watchlistMap } = await getTopMoviesWithWatchlist(api_url_movies, selectedYear);
-      setTopMovies(movies);
-      setWatchlist(watchlistMap);
+      const { movies, watchlistMap } = await getTopMoviesWithWatchlist(api_url_movies, state.selectedYear);
+      dispatch({ type: "SET_MOVIES", payload: { movies, watchlistMap } });
     };
 
     if (api_url_movies) {
       fetchMoviesAndWatchlist();
     }
-  }, [selectedYear, api_url_movies]);
+  }, [state.selectedYear, api_url_movies]);
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 6);
+    dispatch({ type: "LOAD_MORE" });
   };
 
   const handleWatchlistToggle = async (movie_id) => {
-    const isInWatchlist = watchlist[movie_id];
+    const isInWatchlist = state.watchlist[movie_id];
     const url = isInWatchlist ? "/movies/watchlist/remove" : "/movies/watchlist/add";
 
     try {
@@ -47,10 +73,7 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
         body: JSON.stringify({ movie_id }),
       });
 
-      setWatchlist((prevState) => ({
-        ...prevState,
-        [movie_id]: !isInWatchlist,
-      }));
+      dispatch({ type: "TOGGLE_WATCHLIST", payload: movie_id });
     } catch (error) {
       console.error("Error updating watchlist:", error);
     }
@@ -62,31 +85,31 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
       <div className="row">
         <div className="col-md-2">
           <YearFilter
-            years={allYears}
-            selectedYear={selectedYear}
-            onChange={setSelectedYear}
+            years={state.allYears}
+            selectedYear={state.selectedYear}
+            onChange={(year) => dispatch({ type: "SET_YEAR", payload: year })}
           />
         </div>
         <div className="col-md-10" id="movie-items">
-          {selectedYear ? (
-            <h5>Top Movies until {selectedYear}</h5>
+          {state.selectedYear ? (
+            <h5>Top Movies until {state.selectedYear}</h5>
           ) : (
             <h5>All Time Top Movies</h5>
           )}
 
-          {topMovies.length > 0 ? (
+          {state.topMovies.length > 0 ? (
             <>
               <div className="row">
-                {topMovies.slice(0, visibleCount).map((movie) => (
+                {state.topMovies.slice(0, state.visibleCount).map((movie) => (
                   <MovieCard
                     key={movie.nid}
                     movie={movie}
-                    isInWatchlist={watchlist[movie.movie_id]}
+                    isInWatchlist={state.watchlist[movie.movie_id]}
                     onToggleWatchlist={handleWatchlistToggle}
                   />
                 ))}
               </div>
-              {visibleCount < topMovies.length && (
+              {state.visibleCount < state.topMovies.length && (
                 <div className="text-center mt-3">
                   <button className="btn btn-primary" onClick={handleLoadMore}>
                     Load More
