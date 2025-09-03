@@ -8,7 +8,9 @@
   <section class="main" id="main">
 
     <main aria-label="Site main content" class="content" id="content" role="main">
-    
+        {# React root for SPA #}
+      <div id="react-root"></div>
+     {{ attach_library('movie_mania_theme/react_app') }}
         {{ page.content }} 
         
     </main>

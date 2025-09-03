@@ -7,6 +7,8 @@ use Drupal\profile\Model\UserModel;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends ControllerBase {
     protected $currentUser;
@@ -22,7 +24,7 @@ class UserController extends ControllerBase {
     public static function create(ContainerInterface $container) {
         return new static(
             $container->get('current_user'), 
-            $container->get('model.profile')
+            $container->get('profile.profile_model')
         );
     }
 
@@ -38,6 +40,19 @@ class UserController extends ControllerBase {
             'uid' => $uid,
             'timezone'=>$timezone,
         ];
+    }
+    public function saveUser(Request $request) {
+        $data = json_decode($request->getContent(), TRUE);
+
+        $username = $data['userName'];
+        $password = $data['password'];
+        $role = $data['role'];
+
+        return new JsonResponse([
+        'status' => 'success',
+        'message' => 'User saved',
+        'data' => $data,
+        ]);
     }
 
 }    

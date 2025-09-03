@@ -51,7 +51,16 @@ class MoviesController extends ControllerBase {
         ];
     }
     
-    
+    public function renderDashboard(){
+        return [
+            '#theme' => 'dashboard_page',
+            '#attached' => [
+                'library' => [
+                    'movie_mania_theme/react_app',
+                ],
+             ]
+            ];
+    }
     // Get Movies from db and return object for react
     public function renderMovies() {
        
@@ -71,24 +80,7 @@ class MoviesController extends ControllerBase {
         $years = $this->topMoviesService->getAllYearsResponse();
       return new JsonResponse($years);
     }
-    //this function is responsible to send the data to front end
-    // public function renderSortMovies($value = NULL) {
-    //   $results = [];
-
-    //    // Use the movie model to get upcoming movies
-    //    //  if ($value != '') {
-    //    $results = $this->movieModel->getUpcomingMovies($value);
-    //    //}
-
-    //   return [
-    //     '#theme' => 'movies_page',
-    //     '#attached' => [
-    //         'library' => [
-    //             'movie_mania_theme/react_app',
-    //         ],
-    //     ],
-    // ];
-    //    }
+   
     public function addToWatchlistRequest(Request $request) {
         $data = json_decode($request->getContent(), TRUE);
         $uid = \Drupal::currentUser()->id();

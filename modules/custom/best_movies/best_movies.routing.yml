@@ -6,9 +6,18 @@ react_homepage:
     _permission: 'access content'  
     
 movies_page:
-  path: '/best-movies'
+  path: 'best-movies'
   defaults:
     _controller: '\Drupal\best_movies\Controller\MoviesController::renderMovies'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE
+
+dashboard_page:
+  path: 'dashboard'
+  defaults:
+    _controller: '\Drupal\best_movies\Controller\MoviesController::renderDashboard'
   requirements:
     _permission: 'access content'
   options:

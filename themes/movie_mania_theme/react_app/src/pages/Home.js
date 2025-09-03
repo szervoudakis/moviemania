@@ -7,7 +7,7 @@ const Home = ({ top3movies }) => {
     const topMoviesRoute = window.drupalSettings.movieMania.topMoviesRoute;
     const username = window.drupalSettings.movieMania.username;
     const [topMovies, setTopMovies] = useState([]);
-  
+   
     useEffect(() => {
       if (top3movies) {
         fetchData(top3movies).then((movies) => setTopMovies(movies));
@@ -16,7 +16,7 @@ const Home = ({ top3movies }) => {
 
   return (
     <div>
-      {/* Hero Section */}
+      {/* First Section */}
       <section className="hero">
         <h1>Welcome to Moviemania {username}</h1>
         <p>Your one-stop destination for the latest movies, ratings, and reviews.</p>

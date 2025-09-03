@@ -2,11 +2,36 @@
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\user\Entity\User;
+use Drupal\user\Entity\Role;
+
 
 function movie_mania_theme_preprocess_html(array &$variables) {
   $theme_path = DRUPAL_ROOT . "/themes/movie_mania_theme";
   $react_build_path = $theme_path . '/react_app/build/static/js/';
   $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+  $current_user=\Drupal::currentUser();
+  $account = User::load($current_user->id());
+  $roles = Role::loadMultiple();
+
+  $all_roles = [];
+  foreach ($roles as $role_id => $role) {
+    $all_roles[] = [
+        'value' => $role_id,
+        'label' => $role->label(),
+    ];
+  }
+
+  //take all userinfo for user
+  $userData = [
+    'uid' => $current_user->id(),
+    'username' => $current_user->getDisplayName(),
+    'email' => $current_user->getEmail(),
+    'role' => $current_user->getRoles()[0],
+    'timezone' => $account->getTimezone() ?? date_default_timezone_get(),
+    'available_roles'=> $all_roles,
+  ];
 
   // take http host
   $host = $_SERVER['HTTP_HOST'];
@@ -21,17 +46,25 @@ function movie_mania_theme_preprocess_html(array &$variables) {
       $relative_js_path = str_replace(DRUPAL_ROOT, '', $latest_js);
       // Generate the route dynamically using the Url class.
       $route_url = \Drupal\Core\Url::fromRoute('movies_page')->toString();
+      $dashboard_route = \Drupal\Core\Url::fromRoute('dashboard_page')->toString();
       $route_movies = \Drupal\Core\Url::fromRoute("best_movies.top_movies")->toString();
       $route_top_movies = \Drupal\Core\Url::fromRoute("best_movies.top_movies_all")->toString();
       $years=\Drupal\Core\Url::fromRoute("years")->toString();
-
+      $save_info=\Drupal\Core\Url::fromRoute("movie_mania.save_user")->toString();
+      
       // Attach settings and libraries.
       $variables['#attached']['drupalSettings']['movieMania'] = [
           'topMoviesRoute' => $route_url,
           'top3movies'=>$route_movies,
           'topmovies' =>$route_top_movies, 
           'years' =>$years, 
+          'dashboardRoute' => $dashboard_route,
+          'user' => $userData,   
+          'save_info' => $save_info,
       ];
+
+      $variables['#attached']['drupalSettings']['csrfToken'] = \Drupal::service('csrf_token')->get('rest');
+
       $variables['#attached']['library'][] = 'movie_mania_theme/react_app';
       $variables['#attached']['html_head'][] = [
           [

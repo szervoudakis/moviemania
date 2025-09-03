@@ -6,3 +6,12 @@ profile:
     _role: 'authenticated+administrator'
   options:
     no_cache: TRUE
+
+movie_mania.save_user:
+  path: '/api/save-user'
+  defaults:
+    _controller: '\Drupal\profile\Controller\UserController::saveUser'
+    _title: 'Save User'
+  requirements:
+    _permission: 'access content'
+  methods: [POST]

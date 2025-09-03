@@ -24,6 +24,7 @@ function best_movies_theme($existing, $type, $theme, $path) {
       'render_movies' => [
         'variables' => ['movies' => NULL, 'filters' => NULL],
       ],
+      
     ];
 
   }
