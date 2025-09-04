@@ -1,8 +1,8 @@
-import React, { useEffect, useReducer } from "react";
-import { fetchYears, getTopMoviesWithWatchlist } from "../services/moviesService";
+import React, { useEffect, useReducer,useState } from "react";
+import { fetchYears, getTopMoviesWithWatchlist, toggleWatchlist } from "../services/moviesService";
 import MovieCard from "../components/MovieCard";
 import YearFilter from "../components/YearFilter";
-
+import Message from "../components/Message";
 
 const initialState = {
    topMovies:[],
@@ -11,7 +11,7 @@ const initialState = {
    visibleCount:8,
    watchlist: {},
 }
-//we have one reducer for all the case-states
+//we have one reducer for all case-states
 function reducer(state, action) {
   switch (action.type) {
     case "SET_YEARS":
@@ -36,7 +36,8 @@ function reducer(state, action) {
 }
 const Top250Movies = ({ api_url_movies, api_url_years }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  //use state for the years
+  const [message, setMessage] = useState({type:"" , text: ""});
+  //use effect for the years
   useEffect(() => {
     const fetchAllYears = async () => {
       const years = await fetchYears(api_url_years);
@@ -64,24 +65,19 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
 
   const handleWatchlistToggle = async (movie_id) => {
     const isInWatchlist = state.watchlist[movie_id];
-    const url = isInWatchlist ? "/movies/watchlist/remove" : "/movies/watchlist/add";
+    const {success,message} = await toggleWatchlist(movie_id, isInWatchlist);
 
-    try {
-      await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ movie_id }),
-      });
-
-      dispatch({ type: "TOGGLE_WATCHLIST", payload: movie_id });
-    } catch (error) {
-      console.error("Error updating watchlist:", error);
+    if(success){
+      dispatch({type:"TOGGLE_WATCHLIST", payload:movie_id});
     }
+
+    setMessage({type: success? "success" : "error", text:message});
   };
 
   return (
     <div>
       <h2>Top 250 Movies</h2>
+      <Message type={message.type} text={message.text} />
       <div className="row">
         <div className="col-md-2">
           <YearFilter

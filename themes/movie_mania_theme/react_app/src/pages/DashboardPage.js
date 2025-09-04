@@ -4,6 +4,7 @@ import SelectInput from "../components/SelectInput";
 import Button from "../components/Button";
 import { saveUser } from "../services/userService";
 import Message from "../components/Message";
+import { useEffect } from "react";
 
 
 const DashboardPage = ({ user}) => {
@@ -12,6 +13,17 @@ const DashboardPage = ({ user}) => {
     const [userEmail, setEmail ] = useState(user.email || "");
     const [role, setRole] = useState(user.role || "");
     const [message, setMessage] = useState({type:"" , text: ""});
+    const [isLoading, setIsLoading] = useState(false);
+    
+    useEffect(() => {
+      if (message.text) {
+        const timer = setTimeout(() => {
+          setMessage({ type: "", text: "" });
+        }, 3000);  //3 seconds for the message
+
+        return () => clearTimeout(timer); //clear timeout if message changed
+      }
+    }, [message]);
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -21,12 +33,16 @@ const DashboardPage = ({ user}) => {
           return ; //stop execution if validations fails
       }
 
+      setIsLoading(true);  //start loading
+
       try {
         const payload = { userName, password, userEmail, role };
         const result = await saveUser(payload); //call saveUser service
         setMessage({type:"success", text:"User saved successfully!"});
       } catch (error) {
         setMessage({type:"error", text: "Error saving user"});
+      }finally{
+        setIsLoading(false)//stop loading
       }
     };
 
@@ -34,6 +50,7 @@ return (
     <div className="container mt-4">
       <h2>Dashboard for {userName}</h2>
       <Message type={message.type} text={message.text} />
+      {isLoading && <p className="text-muted">Saving user data, please wait...</p>}
       <form onSubmit={handleSubmit}>
       <div className="row">
         <div className="col-md-6">
