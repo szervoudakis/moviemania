@@ -55,12 +55,18 @@ react_app/
 │   │   └── logo.svg                  # Example logo asset
 │   ├── components/                   # Reusable UI components
 │   │   ├── MovieCard.js              # Movie card component
+|   |   |── Button.js                 # Button componend
+|   |   |── Message.js                # Message Component for success/fail messages
+|   |   |── Selectinput.js            # Select option list Component
+|   |   |── TextInput.js              # Text input Component
 │   ├── pages/                        # Individual pages of the app
 │   │   ├── HomePage.js               # Homepage component
 │   │   ├── MoviesPage.js             # Page displaying movies
 │   │   └── Top250Page.js             # Page displaying top 250 movies
+│   │   └── DashboardPage.js          # Page to change user's informations
 │   ├── services/                     # API calls and services
 │   │   └── moviesService.js          # Handles API calls for movies
+│   │   └── userService.js            # Handles API calls for user entity
 │   ├── App.js                        # Main entry point for the React app
 │   ├── App.css                       # Global styles for the app
 │   └── index.js                      # React app entry point

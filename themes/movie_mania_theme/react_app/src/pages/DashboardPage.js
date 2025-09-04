@@ -14,15 +14,21 @@ const DashboardPage = ({ user}) => {
     const [message, setMessage] = useState({type:"" , text: ""});
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const payload = { userName, password, role };
-      const result = await saveUser(payload); //call saveUser service
-      setMessage({type:"success", text:"User saved successfully!"});
-    } catch (error) {
-      setMessage({type:"error", text: "Error saving user"});
-    }
-  };
+      e.preventDefault();
+
+      if(!userName || !password || !userEmail || !role){
+          setMessage({type:"error", text:"Please fill in all fields."});
+          return ; //stop execution if validations fails
+      }
+
+      try {
+        const payload = { userName, password, userEmail, role };
+        const result = await saveUser(payload); //call saveUser service
+        setMessage({type:"success", text:"User saved successfully!"});
+      } catch (error) {
+        setMessage({type:"error", text: "Error saving user"});
+      }
+    };
 
 return (
     <div className="container mt-4">
@@ -37,8 +43,6 @@ return (
             onChange={setUsername}
             placeholder="Enter username"
           />
-        </div>
-        <div className="col-md-6">
           <TextInput
             label="Password"
             type="password"
@@ -46,10 +50,6 @@ return (
             onChange={setPassword}
             placeholder="Enter password"
           />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-6">
           <TextInput
             label="Email"
             type="email"
@@ -57,8 +57,6 @@ return (
             onChange={setEmail}
             placeholder="Enter your email"
           />
-        </div>
-        <div className="col-md-6">
           <SelectInput
             label="Role"
             value={role}
