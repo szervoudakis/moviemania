@@ -1,5 +1,6 @@
 {
   "name": "app",
+  "homepage": "/themes/movie_mania_theme/react_app/build",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
