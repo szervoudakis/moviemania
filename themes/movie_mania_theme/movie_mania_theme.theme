@@ -14,12 +14,21 @@ function movie_mania_theme_preprocess_html(array &$variables) {
   $current_user=\Drupal::currentUser();
   $account = User::load($current_user->id());
   $roles = Role::loadMultiple();
-
+  $all_timezones=\DateTimeZone::listIdentifiers();
   $all_roles = [];
+  $conv_timezones=[];
+
   foreach ($roles as $role_id => $role) {
     $all_roles[] = [
         'value' => $role_id,
         'label' => $role->label(),
+    ];
+  }
+ //convert into array with value/label fields
+  foreach($all_timezones as $timezone_value => $timezonelabel){
+    $conv_timezones[] = [
+       'value' => $timezonelabel,
+       'label' => $timezonelabel,
     ];
   }
 
@@ -31,6 +40,7 @@ function movie_mania_theme_preprocess_html(array &$variables) {
     'role' => $current_user->getRoles()[0],
     'timezone' => $account->getTimezone() ?? date_default_timezone_get(),
     'available_roles'=> $all_roles,
+    'available_timezones'=>  $conv_timezones,
   ];
 
   // take http host
