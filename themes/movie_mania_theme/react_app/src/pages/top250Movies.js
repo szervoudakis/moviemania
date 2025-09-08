@@ -3,6 +3,7 @@ import { fetchYears, getTopMoviesWithWatchlist, toggleWatchlist } from "../servi
 import MovieCard from "../components/MovieCard";
 import YearFilter from "../components/YearFilter";
 import Message from "../components/Message";
+import { useWatchlistStore } from "../store/watchlistStore";
 
 const initialState = {
    topMovies:[],
@@ -37,6 +38,8 @@ function reducer(state, action) {
 const Top250Movies = ({ api_url_movies, api_url_years }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [message, setMessage] = useState({type:"" , text: ""});
+  const { watchlist, toggleMovie, setWatchlist } = useWatchlistStore();
+
   //use effect for the years
   useEffect(() => {
     const fetchAllYears = async () => {
@@ -51,7 +54,8 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
    useEffect(() => {
     const fetchMoviesAndWatchlist = async () => {
       const { movies, watchlistMap } = await getTopMoviesWithWatchlist(api_url_movies, state.selectedYear);
-      dispatch({ type: "SET_MOVIES", payload: { movies, watchlistMap } });
+      dispatch({ type: "SET_MOVIES", payload: { movies } });
+      setWatchlist(watchlistMap); //zustand for watchlist
     };
 
     if (api_url_movies) {
@@ -64,13 +68,12 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
   };
 
   const handleWatchlistToggle = async (movie_id) => {
-    const isInWatchlist = state.watchlist[movie_id];
+    const isInWatchlist = watchlist[movie_id];
     const {success,message} = await toggleWatchlist(movie_id, isInWatchlist);
 
     if(success){
-      dispatch({type:"TOGGLE_WATCHLIST", payload:movie_id});
+      toggleMovie(movie_id);
     }
-
     setMessage({type: success? "success" : "error", text:message});
   };
 
@@ -100,7 +103,7 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
                   <MovieCard
                     key={movie.nid}
                     movie={movie}
-                    isInWatchlist={state.watchlist[movie.movie_id]}
+                    isInWatchlist={watchlist[movie.movie_id]}
                     onToggleWatchlist={handleWatchlistToggle}
                   />
                 ))}
