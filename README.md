@@ -3,7 +3,8 @@
 ## 📌 Project Overview
 **Moviemania** is a Drupal-based movie management system designed to fetch, store, and display movie data efficiently. This project demonstrates expertise in 
 **Drupal module development**, **API integration**, **custom theming**,**modern PHP development practices** **Progressively decoupled React frontend**.
-
+On the **React side**, the application leverages Redux and Zustand for state management, custom hooks for encapsulating reusable logic, and asynchronous API calls 
+to ensure dynamic data flow between the frontend and backend. This architecture promotes modularity, scalability, and a clean separation of concerns across the application.
 ## 🚀 Features
 - **Custom Theme (movie_mania_theme)** - A tailored Drupal theme for a modern and user-friendly experience.
 - **Custom Modules**:
@@ -64,9 +65,16 @@ react_app/
 │   │   ├── MoviesPage.js             # Page displaying movies
 │   │   └── Top250Page.js             # Page displaying top 250 movies
 │   │   └── DashboardPage.js          # Page to change user's informations
+│   │   └── WatchlistPage.js          # Page displaying watchlist
 │   ├── services/                     # API calls and services
 │   │   └── moviesService.js          # Handles API calls for movies
 │   │   └── userService.js            # Handles API calls for user entity
+│   ├── hooks/                        # custom hooks for DRY principle
+│   │   └── useWatchlistActions.js    # add or remove item from watchlist 
+│   ├── store/                        # API calls and services
+│   │   └── index.js                  # Starting point for redux
+│   │   └── userSlice.js              # Slice for user's actions 
+│   │   └── watchlistStore.js         # Using zustand for "light" functionalities
 │   ├── App.js                        # Main entry point for the React app
 │   ├── App.css                       # Global styles for the app
 │   └── index.js                      # React app entry point
