@@ -23,6 +23,26 @@ dashboard_page:
   options:
     no_cache: TRUE
 
+watchlist_page:
+  path: 'watchlist'
+  defaults:
+    _controller: '\Drupal\best_movies\Controller\MoviesController::renderWatchList'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE
+
+
+best_movies.watchlist:
+  path: '/get-watchlist'
+  defaults:
+    _controller: '\Drupal\best_movies\Controller\MoviesController::myWatchListWithInfo'
+  requirements:
+    _permission: 'authenticated'
+  options:
+    no_cache: TRUE
+
+
 best_movies.top_movies:
   path: '/top-3-movies'
   defaults:

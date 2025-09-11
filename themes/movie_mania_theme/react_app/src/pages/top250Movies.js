@@ -4,6 +4,7 @@ import MovieCard from "../components/MovieCard";
 import YearFilter from "../components/YearFilter";
 import Message from "../components/Message";
 import { useWatchlistStore } from "../store/watchlistStore";
+import { useWatchlistActions } from "../hooks/useWatchlistActions";
 
 const initialState = {
    topMovies:[],
@@ -23,23 +24,14 @@ function reducer(state, action) {
       return { ...state, selectedYear: action.payload, visibleCount: 8 };
     case "LOAD_MORE":
       return { ...state, visibleCount: state.visibleCount + 6 };
-    case "TOGGLE_WATCHLIST":
-      return {
-        ...state,
-        watchlist: {
-          ...state.watchlist,
-          [action.payload]: !state.watchlist[action.payload],
-        },
-      };
     default:
       return state;
   }
 }
 const Top250Movies = ({ api_url_movies, api_url_years }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [message, setMessage] = useState({type:"" , text: ""});
-  const { watchlist, toggleMovie, setWatchlist } = useWatchlistStore();
-
+  const { watchlist,setWatchlist } = useWatchlistStore();
+  const { handleToggle, message } = useWatchlistActions();
   //use effect for the years
   useEffect(() => {
     const fetchAllYears = async () => {
@@ -65,16 +57,6 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
 
   const handleLoadMore = () => {
     dispatch({ type: "LOAD_MORE" });
-  };
-
-  const handleWatchlistToggle = async (movie_id) => {
-    const isInWatchlist = watchlist[movie_id];
-    const {success,message} = await toggleWatchlist(movie_id, isInWatchlist);
-
-    if(success){
-      toggleMovie(movie_id);
-    }
-    setMessage({type: success? "success" : "error", text:message});
   };
 
   return (
@@ -104,7 +86,7 @@ const Top250Movies = ({ api_url_movies, api_url_years }) => {
                     key={movie.nid}
                     movie={movie}
                     isInWatchlist={watchlist[movie.movie_id]}
-                    onToggleWatchlist={handleWatchlistToggle}
+                    onToggleWatchlist={()=> handleToggle(movie.movie_id)}
                   />
                 ))}
               </div>

@@ -61,6 +61,18 @@ class MoviesController extends ControllerBase {
              ]
             ];
     }
+
+    public function renderWatchlist(){
+        return [
+            '#theme' => 'watchlist_page',
+            '#attached' => [
+                'library' => [
+                    'movie_mania_theme/react_app',
+                ],
+             ]
+            ];
+    }
+
     // Get Movies from db and return object for react
     public function renderMovies() {
        
@@ -112,8 +124,15 @@ class MoviesController extends ControllerBase {
         
         $uid = \Drupal::currentUser()->id();
         $watchlist = $this->movieModel->mywatchlist($uid);
-       //return a JsonResponse with the watchlist data 
+       //return a JsonResponse with the watchlist ids
       return new JsonResponse($watchlist);
+    }
+
+    public function myWatchListWithInfo(){
+        $uid = \Drupal::currentUser()->id();
+        $watchlist = $this->topMoviesService->getWatchListResponse($uid);
+    
+        return new JsonResponse($watchlist);
     }
       
 }

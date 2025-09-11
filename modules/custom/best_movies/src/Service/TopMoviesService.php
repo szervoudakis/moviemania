@@ -38,6 +38,15 @@ class TopMoviesService {
    */
   public function getAllYearsResponse(){
     $years = $this->movieModel->getAllYears();
+   
     return json_encode($years,TRUE);
+  }
+
+  /**
+   * Get watchlist from specific user
+   */
+  public function getWatchListResponse($uid){
+     $watchlist = $this->movieModel->getWatchlist($uid);
+     return json_encode($watchlist,TRUE);
   }
 }

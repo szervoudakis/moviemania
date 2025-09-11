@@ -61,7 +61,8 @@ function movie_mania_theme_preprocess_html(array &$variables) {
       $route_top_movies = \Drupal\Core\Url::fromRoute("best_movies.top_movies_all")->toString();
       $years=\Drupal\Core\Url::fromRoute("years")->toString();
       $save_info=\Drupal\Core\Url::fromRoute("movie_mania.save_user")->toString();
-      
+      $watchlist_route=\Drupal\Core\Url::fromRoute("watchlist_page")->toString();
+
       // Attach settings and libraries.
       $variables['#attached']['drupalSettings']['movieMania'] = [
           'topMoviesRoute' => $route_url,
@@ -71,6 +72,7 @@ function movie_mania_theme_preprocess_html(array &$variables) {
           'dashboardRoute' => $dashboard_route,
           'user' => $userData,   
           'save_info' => $save_info,
+          'watchlist_route'=>$watchlist_route,
       ];
 
       $variables['#attached']['drupalSettings']['csrfToken'] = \Drupal::service('csrf_token')->get('rest');

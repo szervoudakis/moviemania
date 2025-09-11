@@ -8,6 +8,7 @@ import { setUser } from './store/userSlice';
 const Home = lazy(() => import("./pages/Home"));
 const Top250Movies = lazy(() => import("./pages/top250Movies"));
 const DashboardPage = lazy(()=> import("./pages/DashboardPage"));
+const WatchListPage = lazy(()=>import("./pages/WatchListPage"));
 
 function App() {
   
@@ -17,7 +18,10 @@ function App() {
   const api_url_years = window.drupalSettings.movieMania.years;
   const dashboard = window.drupalSettings.movieMania.dashboardRoute;
   const user = window.drupalSettings.movieMania.user;
+  const watchlist = window.drupalSettings.movieMania.watchlist_route;
+
   store.dispatch(setUser(user));
+  
   return (
     <Provider store={store}>
           <Router>
@@ -26,6 +30,7 @@ function App() {
                     <Route path="/" element={<Home top3movies={top3movies} />} />
                     <Route path={topMoviesRoute} element={<Top250Movies api_url_movies={api_url_movies} api_url_years={api_url_years} />} />
                     <Route path={dashboard} element={<DashboardPage user={user} />} />
+                    <Route path={watchlist} element={<WatchListPage />} />
                 </Routes>
             </Suspense>
           </Router>

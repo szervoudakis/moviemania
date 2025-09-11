@@ -46,7 +46,7 @@ export const getTopMoviesWithWatchlist = async (baseUrl, selectedYear) => {
 };
 
 export const toggleWatchlist = async (movie_id, isInWatchlist) => {
-  const url = isInWatchlist ? "/movies/watchlist/remove" : "/movies/watchlist/add";
+  const url = isInWatchlist ? "/movies/watchlist/remove" : "/movies/watchlist/add"; //check which url is appropriate  for post request
   const message = isInWatchlist ? "Remove from WatchList" : "Added to Watchlist";
 
   try {
@@ -59,10 +59,13 @@ export const toggleWatchlist = async (movie_id, isInWatchlist) => {
     if (!response.ok) {
       throw new Error("Failed to update watchlist");
     }
-
     return { success: true, message };
   } catch (error) {
     console.error("Error updating watchlist:", error);
     return { success: false, message: "Failed to update watchlist" };
   }
 };
+
+export const fetchWatchlistMovies = async () => {
+    return await fetchData("/get-watchlist");
+}

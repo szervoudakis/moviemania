@@ -43,6 +43,18 @@ class MovieModel {
         return $query;
     }
 
+    public function getWatchlist($uid){
+        $query = $this->buildMovieQuery();
+
+        // Join with the watchlist table (alias w)
+        $query->join('watchlist', 'w', 'movie_id.field_movie_id_value = w.movie_id');
+
+        // for specific user
+        $query->condition('w.user_id', $uid);
+
+        return $query->distinct()->execute()->fetchAll();
+    }
+
     // Fetch upcoming movies based on a specific year
     public function getUpcomingMovies($year) {
        
