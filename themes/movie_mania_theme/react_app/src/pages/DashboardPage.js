@@ -50,7 +50,6 @@ const DashboardPage = () => {
             ...(password && { password }),//if exists
         };
         const result = await saveUser(payload); //call saveUser service
-        // console.log(result);
         setMessage({type:"success", text:"User saved successfully!"});
       } catch (error) {
         setMessage({type:"error", text: "Error saving user"});
